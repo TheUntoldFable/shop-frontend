@@ -75,11 +75,12 @@ h2 {
 }
 
 h3 {
+    line-height: normal;
     font-size: 24px;
 }
 
 p {
-    font-size: 14px;
+    font-size: 16px;
     color: #EEEEEE
 }
 
@@ -94,6 +95,21 @@ strong {
 
  .about-us {
     font-size: 42px;
+}
+
+.prose > h1 {
+    font-family: "Euclid_SemiBold", sans-serif;
+    color: #EEEEEE
+}
+
+.prose > h2 {
+    font-family: "Euclid_SemiBold", sans-serif;
+    color: #EEEEEE
+}
+
+.prose > h3 {
+    font-family: "Euclid_SemiBold", sans-serif;
+    color: #EEEEEE
 }
 
 .prose > p {

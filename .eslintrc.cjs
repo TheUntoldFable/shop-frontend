@@ -40,6 +40,7 @@ module.exports = {
     '@stylistic/comma-dangle': [ 'warn', 'never' ],
     '@stylistic/no-multi-spaces': 'error',
     '@stylistic/max-statements-per-line': [ 'warn', { 'max': 5 } ],
+    '@typescript-eslint/consistent-type-imports': 'warn',
 
     '@typescript-eslint/no-unused-vars': 'warn',
     'linebreak-style': [ 'error', 'unix' ],

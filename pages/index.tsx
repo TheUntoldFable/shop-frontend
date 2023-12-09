@@ -1,3 +1,4 @@
+import type { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useEffect } from 'react'
@@ -12,7 +13,6 @@ import { setUserInfo } from '@/store/userSlice'
 import { fetchDataFromApi } from '@/utils/api'
 
 import 'react-toastify/dist/ReactToastify.css'
-
 
 // eslint-disable-next-line react/prop-types
 export default function Home({ shirts, productsNoShirt, userData }) {
@@ -40,8 +40,10 @@ export default function Home({ shirts, productsNoShirt, userData }) {
   )
 }
 
-export async function getStaticProps(ctx) {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const { locale } = ctx
+
+  if(!locale) return { props: {} }
 
   // const products = await fetchDataFromApi(
   //   `/api/products?populate=*&sort=subtitle:desc&locale=${locale}`

@@ -2,7 +2,7 @@ import { Head, Html, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html className='!scroll-smooth' lang="en">
       <Head>
         <link
           href="https://use.fontawesome.com/releases/vVERSION/css/svg-with-js.css"
@@ -20,7 +20,7 @@ export default function Document() {
           referrerPolicy="no-referrer"
         />
       </Head>
-      <body>
+      <body >
         <Main />
         <NextScript />
       </body>

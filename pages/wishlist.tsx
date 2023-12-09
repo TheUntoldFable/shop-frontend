@@ -2,15 +2,15 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Container from '@/components/Container'
-import WishlistEmpty from '@/components/wishlist/WishlistEmpty'
+import PageEmpty from '@/components/PageEmpty'
 import WishlistItem from '@/components/wishlist/WishlistItem'
 import Wrapper from '@/components/Wrapper'
 import { useAppSelector } from '@/store/hooks'
 import { selectWishlistItems } from '@/store/wishlistSlice'
 
-
 const Wishlist = () => {
-  const { t } = useTranslation('wishlist')
+  const { t } = useTranslation([ 'wishlist', 'cart', 'buttons' ])
+
   const wishlistItems = useAppSelector(selectWishlistItems)
 
   return (
@@ -42,7 +42,13 @@ const Wishlist = () => {
           )}
 
           {/* This is empty screen */}
-          {wishlistItems.length < 1 && <WishlistEmpty />}
+          {wishlistItems.length < 1 && (
+            <PageEmpty
+              icon="heart"
+              title={t('empty')}
+              description={t('empty_description')}
+            />
+          )}
         </Wrapper>
       </div>
     </Container>
