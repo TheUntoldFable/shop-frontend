@@ -12,7 +12,7 @@ import { fetchDataFromApi } from '@/utils/api'
 import 'react-toastify/dist/ReactToastify.css'
 
 // eslint-disable-next-line react/prop-types
-export default function Home({ shirts, productsNoShirt, userData }) {
+export default function Home({ shirts, hoodies, allProducts, userData }) {
   const dispatch = useAppDispatch()
   const { locale } = useRouter()
 
@@ -25,7 +25,7 @@ export default function Home({ shirts, productsNoShirt, userData }) {
   return (
     <main>
       <Container className='md:mt-56 sm:mt-28 mt-12'>
-        <HomePage shirts={shirts} productsNoShirt={productsNoShirt} />
+        <HomePage hoodies={hoodies} shirts={shirts} allProducts={allProducts} />
       </Container>
     </main>
   )
@@ -42,16 +42,21 @@ export async function getStaticProps(ctx) {
     `/api/products?populate=*&filters[subtitle][$contains]=t-shirt&sort=updatedAt:asc&locale=${locale}`
   )
 
-  const productsNoShirt = await fetchDataFromApi(
-    `/api/products?populate=*&filters[subtitle][$notContains]=t-shirt&sort=price:asc&locale=${locale}`
+  const hoodies = await fetchDataFromApi(
+    `/api/products?populate=*&filters[subtitle][$contains]=hoodie&sort=updatedAt:asc&locale=${locale}`
+  )
+
+  const allProducts = await fetchDataFromApi(
+    `/api/products?populate=*&sort=price:asc&locale=${locale}`
   )
 
   const userData = getUser(ctx)
 
   return {
     props: {
+      hoodies,
       shirts,
-      productsNoShirt,
+      allProducts,
       userData,
       ...(await serverSideTranslations(locale, [
         'common',

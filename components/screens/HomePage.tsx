@@ -13,13 +13,15 @@ import ProductCard from '../ProductCard'
 import SubscribeDialog from '../SubscribeDialog'
 import Wrapper from '../Wrapper'
 
-export default function HomePage({ shirts, productsNoShirt }) {
+export default function HomePage({ hoodies, shirts, allProducts }) {
   const { isMobile } = useWindowSize()
   const { t } = useTranslation('common')
 
-  const collectionRef = useRef(null) 
+  const collectionRef = useRef(null)
 
   const collectionInView = useInView(collectionRef, { once: true })
+
+  const filteredProducts = allProducts.data.filter(p => p.attributes.subtitle !== 't-shirt' && p.attributes.subtitle !== 'hoodie' )
 
   return (
     <div>
@@ -30,9 +32,30 @@ export default function HomePage({ shirts, productsNoShirt }) {
         <div style={!isMobile ? slideRight(collectionInView) : undefined} ref={collectionRef} className="bg-offWhite relative flex flex-col flex-1 p-6 mb-12 rounded-md gap-6 bg-opacity-90">
           <div className="rounded-md z-1 text-center">
             <h2 className="text-darkBlack p-4 rounded-md uppercase sm:text-[32px] my-6 text-[24px] font-semibold">
+              {t('GODS & MONSTERS')}
+            </h2>
+          </div>
+
+          {hoodies && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-2 md:gap-6">
+              {hoodies?.data?.map((product) => (
+                <ProductCard
+                  key={product?.id}
+                  data={product}
+                  border="border-0"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div style={!isMobile ? slideRight(collectionInView) : undefined} ref={collectionRef} className="bg-offWhite relative flex flex-col flex-1 p-6 mb-12 rounded-md gap-6 bg-opacity-90">
+          <div className="rounded-md z-1 text-center">
+            <h2 className="text-darkBlack p-4 rounded-md uppercase sm:text-[32px] my-6 text-[24px] font-semibold">
               {t('uncensored_collection')}
             </h2>
           </div>
+
 
           {shirts && (
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-2 md:gap-6">
@@ -46,10 +69,10 @@ export default function HomePage({ shirts, productsNoShirt }) {
             </div>
           )}
         </div>
-        {productsNoShirt && (
+        {filteredProducts && (
           <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-2 my-12 md:gap-6">
-            {productsNoShirt?.data?.map((product, index) => (
-              <ProductCard mIndex={index} key={product?.id} data={product} />
+            {filteredProducts.map((product, index) => (
+              <ProductCard mIndex={index} key={`${product?.id}-${index}`} data={product} />
             ))}
           </div>
         )}
