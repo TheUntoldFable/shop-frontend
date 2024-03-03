@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useInView } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { ToastContainer } from 'react-toastify'
 
 import useWindowSize from '@/hooks/useWindowSize'
@@ -18,10 +18,12 @@ export default function HomePage({ hoodies, shirts, allProducts }) {
   const { t } = useTranslation('common')
 
   const collectionRef = useRef(null)
+  const godsMonstersRef = useRef(null)
 
   const collectionInView = useInView(collectionRef, { once: true })
+  const godsMonstersInView = useInView(godsMonstersRef, { once: true })
 
-  const filteredProducts = allProducts.data.filter(p => p.attributes.subtitle !== 't-shirt' && p.attributes.subtitle !== 'hoodie' )
+  const filteredProducts = useMemo(() =>allProducts.data.filter(p => p.attributes.subtitle !== 't-shirt' && p.attributes.subtitle !== 'hoodie' ),[ allProducts ])
 
   return (
     <div>
@@ -29,7 +31,7 @@ export default function HomePage({ hoodies, shirts, allProducts }) {
       <SubscribeDialog />
       <Wrapper>
         <HeroBanner />
-        <div style={!isMobile ? slideRight(collectionInView) : undefined} ref={collectionRef} className="bg-offWhite relative flex flex-col flex-1 p-6 mb-12 rounded-md gap-6 bg-opacity-90">
+        <div style={!isMobile ? slideRight(godsMonstersInView) : undefined} ref={godsMonstersRef} className="bg-offWhite relative flex flex-col flex-1 p-6 mb-12 rounded-md gap-6 bg-opacity-90">
           <div className="rounded-md z-1 text-center">
             <h2 className="text-darkBlack p-4 rounded-md uppercase sm:text-[32px] my-6 text-[24px] font-semibold">
               {t('GODS & MONSTERS')}
