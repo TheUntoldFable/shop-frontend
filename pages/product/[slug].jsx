@@ -27,7 +27,7 @@ const ProductDetails = ({ product, products }) => {
   const { productSlider, outOfStock, subtitle } =
     product.data[0].attributes
 
-  const isAccessory = !subtitle.toLowerCase().includes('t-shirt') || !subtitle.toLowerCase().includes('hoodie')
+  const isAccessory = !subtitle.toLowerCase().includes('hoodie') && !subtitle.toLowerCase().includes('t-shirt')
 
   const [ selectedSize, setSelectedSize ] = useState(
     isAccessory ? 'M' : undefined
