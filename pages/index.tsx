@@ -32,9 +32,7 @@ export default function Home({ shirts, productsNoShirt, userData }) {
   return (
     <main>
       <Header />
-
       <HomePage shirts={shirts} productsNoShirt={productsNoShirt} />
-
       <Footer />
     </main>
   )

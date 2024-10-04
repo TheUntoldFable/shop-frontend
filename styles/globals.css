@@ -93,7 +93,7 @@ strong {
     font-family: "Euclid_Bold";
 }
 
- .about-us {
+.about-us {
     font-size: 42px;
 }
 
@@ -115,6 +115,11 @@ strong {
 .prose > p {
     font-family: "Euclid_SemiBold", sans-serif;
     font-size: 20px;
+
+    img {
+        object-fit: contain;
+        max-height: 400px;
+    }
 }
 
 textarea {

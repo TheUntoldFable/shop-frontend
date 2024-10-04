@@ -1,32 +1,37 @@
 /* eslint-disable react/prop-types */
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import React from 'react'
-import { BsChevronDown } from 'react-icons/bs'
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import React from "react";
+import { BsChevronDown } from "react-icons/bs";
 
 // eslint-disable-next-line react/prop-types
 const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
-  const { t } = useTranslation('nav')
-  const { locale } = useRouter()
+  const { t } = useTranslation("nav");
+  const { locale } = useRouter();
+
+  const isDev = process.env.NODE_ENV !== "development";
+  console.log(isDev, "isdev");
 
   const navItems = [
-    { id: 1, name: t('home'), url: `/${locale}` },
-    { id: 2, name: t('about'), url: `${locale}/about` },
-    { id: 3, name: t('category'), subMenu: true },
-    { id: 4, name: t('contact'), url: `${locale}/contact` },
-    { id: 5, name: t('blog'), url: `${locale}/blogs` }
-  ]
+    { id: 1, name: t("home"), url: `/${locale}` },
+    { id: 2, name: t("about"), url: `${locale}/about` },
+    { id: 3, name: t("category"), subMenu: true },
+    { id: 4, name: t("contact"), url: `${locale}/contact` },
+    /*{ id: 5, name: t("blog"), url: `${locale}/blogs` },*/
+  ];
 
   return (
-    <ul className="
+    <ul
+      className="
     hidden 
     md:flex 
     items-center 
     justify-center 
     gap-6 
     font-semibold 
-    text-[18px]">
+    text-[18px]"
+    >
       {navItems.map((item) => {
         return (
           <React.Fragment key={item.id}>
@@ -52,7 +57,8 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                 <BsChevronDown size={14} />
 
                 {showCatMenu && (
-                  <ul className="
+                  <ul
+                    className="
                   bg-offWhite 
                   flex
                   flex-col
@@ -67,16 +73,19 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                   py-1.5
                   px-2
                   text-darkBlack
-                  shadow-lg">
-                    {categories && categories?.map(({ attributes: c, id }) => {
-                      return (
-                        <Link
-                          replace
-                          key={id}
-                          href={`/category/${c.slug}`}
-                          onClick={() => setShowCatMenu(false)}
-                        >
-                          <li className="
+                  shadow-lg"
+                  >
+                    {categories &&
+                      categories?.map(({ attributes: c, id }) => {
+                        return (
+                          <Link
+                            replace
+                            key={id}
+                            href={`/category/${c.slug}`}
+                            onClick={() => setShowCatMenu(false)}
+                          >
+                            <li
+                              className="
                           flex 
                           justify-between
                           items-center
@@ -86,15 +95,16 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                           duration-300 
                           hover:bg-darkBlack/[0.05]
                           shadow-sm
-                          rounded-sm">
-                            {c.name}
-                            <span className="opacity-50 text-sm">
-                              {`(${c.products.data.length})`}
-                            </span>
-                          </li>
-                        </Link>
-                      )
-                    })}
+                          rounded-sm"
+                            >
+                              {c.name}
+                              <span className="opacity-50 text-sm">
+                                {`(${c.products.data.length})`}
+                              </span>
+                            </li>
+                          </Link>
+                        );
+                      })}
                   </ul>
                 )}
               </li>
@@ -112,14 +122,16 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                 rounded-sm
                 "
               >
-                <Link replace href={item?.url}>{item.name}</Link>
+                <Link replace href={`/${item?.url}`}>
+                  {item.name}
+                </Link>
               </li>
             )}
           </React.Fragment>
-        )
+        );
       })}
     </ul>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;

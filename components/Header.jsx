@@ -1,78 +1,77 @@
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { BiMenuAltRight } from "react-icons/bi";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { VscChromeClose } from "react-icons/vsc";
+import { useSelector } from "react-redux";
 
-import { faUser } from '@fortawesome/free-regular-svg-icons'
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
-import { BiMenuAltRight } from 'react-icons/bi'
-import { IoMdHeartEmpty } from 'react-icons/io'
-import { VscChromeClose } from 'react-icons/vsc'
-import { useSelector } from 'react-redux'
+import { useAppDispatch } from "@/helpers/store";
+import { useAppSelector } from "@/store/hooks";
+import { setShowBanner } from "@/store/uiSlice";
+import { selectWishlistItems } from "@/store/wishlistSlice";
+import { fetchDataFromApi } from "@/utils/api";
 
-import { useAppDispatch } from '@/helpers/store'
-import { useAppSelector } from '@/store/hooks'
-import { setShowBanner } from '@/store/uiSlice'
-import { selectWishlistItems } from '@/store/wishlistSlice'
-import { fetchDataFromApi } from '@/utils/api'
-
-import Banner from './Banner'
-import LanguageSwitcher from './lang/LanguageSwitcher'
-import Menu from './Menu'
-import MenuMobile from './MenuMobile'
+import Banner from "./Banner";
+import LanguageSwitcher from "./lang/LanguageSwitcher";
+import Menu from "./Menu";
+import MenuMobile from "./MenuMobile";
 
 const Header = () => {
-  const dispatch = useAppDispatch()
-  const { locale } = useRouter()
+  const dispatch = useAppDispatch();
+  const { locale } = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(setShowBanner(true))
-    }, 900000)
+      dispatch(setShowBanner(true));
+    }, 900000);
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
 
-  const [ mobileMenu, setMobileMenu ] = useState(false)
-  const [ showCatMenu, setShowCatMenu ] = useState(false)
-  const [ show, setShow ] = useState('translate-y-0')
-  const [ lastScrollY, setLastScrollY ] = useState(0)
-  const [ categories, setCategories ] = useState(null)
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const [showCatMenu, setShowCatMenu] = useState(false);
+  const [show, setShow] = useState("translate-y-0");
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [categories, setCategories] = useState(null);
 
-  const { cartItems } = useSelector((state) => state.cart)
-  const wishlistItems = useAppSelector(selectWishlistItems)
+  const { cartItems } = useSelector((state) => state.cart);
+  const wishlistItems = useAppSelector(selectWishlistItems);
 
   const controlNavbar = () => {
     if (window.scrollY > 200) {
       if (window.scrollY > lastScrollY && !mobileMenu) {
-        setShow('-translate-y-[80px]')
+        setShow("-translate-y-[80px]");
       } else {
-        setShow('shadow-sm')
+        setShow("shadow-sm");
       }
     } else {
-      setShow('translate-y-0')
+      setShow("translate-y-0");
     }
-    setLastScrollY(window.scrollY)
-  }
+    setLastScrollY(window.scrollY);
+  };
 
   useEffect(() => {
-    window.addEventListener('scroll', controlNavbar)
+    window.addEventListener("scroll", controlNavbar);
     return () => {
-      window.removeEventListener('scroll', controlNavbar)
-    }
-  }, [ lastScrollY ])
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
 
   useEffect(() => {
-    fetchCategories()
-  }, [ locale ])
+    fetchCategories().then();
+  }, [locale]);
 
   const fetchCategories = async () => {
     const { data } = await fetchDataFromApi(
-      `/api/categories?populate=*&locale=${locale}`
-    )
-    setCategories(data)
-  }
+      `/api/categories?populate=*&locale=${locale}`,
+    );
+    setCategories(data);
+  };
 
   return (
     <>
@@ -132,7 +131,8 @@ const Header = () => {
             <div className="flex items-center">
               {/* Icon start */}
               <Link href="/profile">
-                <div className="
+                <div
+                  className="
                 text-offWhite
                 border-offWhite
                   w-8 
@@ -148,12 +148,14 @@ const Header = () => {
                   ease-in-out 
                   duration-300 
                   cursor-pointer 
-                  relative">
+                  relative"
+                >
                   <FontAwesomeIcon icon={faUser} />
                 </div>
               </Link>
               <Link href="/wishlist">
-                <div className="
+                <div
+                  className="
                 text-offWhite 
                 border-[#D8E3E7] 
                 w-8 
@@ -169,7 +171,8 @@ const Header = () => {
                 ease-in-out 
                 duration-300  
                 cursor-pointer 
-                relative">
+                relative"
+                >
                   <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
                   {wishlistItems.length > 0 && (
                     <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-[#B22222] absolute top-1 left-5 md:left-7 text-offWhite text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
@@ -182,7 +185,8 @@ const Header = () => {
 
               {/* Icon start */}
               <Link href="/cart">
-                <div className="
+                <div
+                  className="
                 text-offWhite 
                 border-[#D8E3E7] 
                 w-8 
@@ -198,7 +202,8 @@ const Header = () => {
                 ease-in-out 
                 duration-300   
                 cursor-pointer 
-                relative">
+                relative"
+                >
                   <FontAwesomeIcon icon={faCartShopping} />
                   {cartItems.length > 0 && (
                     <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-[#B22222] absolute top-1 left-5 md:left-7 text-offWhite text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
@@ -210,7 +215,8 @@ const Header = () => {
               {/* Icon end */}
 
               {/* Mobile icon start */}
-              <div className="w-8 md:w-12 
+              <div
+                className="w-8 md:w-12 
               h-8 md:h-12 
               rounded-full 
               flex 
@@ -221,7 +227,8 @@ const Header = () => {
               transition 
               ease-in-out 
               duration-300  
-              cursor-pointer relative -mr-2">
+              cursor-pointer relative -mr-2"
+              >
                 {mobileMenu ? (
                   <VscChromeClose
                     color="#EEEEEE"
@@ -249,7 +256,7 @@ const Header = () => {
         </div>
       </header>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

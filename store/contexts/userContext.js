@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect } from "react";
 import nookies from "nookies";
+import React, { createContext, useContext, useEffect } from "react";
 
 const User = createContext({ user: null, loading: false });
 
@@ -18,7 +18,7 @@ export const UserProvider = ({ value, children }) => {
 };
 
 export const getUser = (ctx) => {
-  const cookies = nookies.get(ctx);
+  const cookies = nookies.get(ctx)
 
   let user = null;
 
