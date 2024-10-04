@@ -1,3 +1,5 @@
+import type { ParsedUrlQuery } from "querystring";
+
 import format from "date-fns/format";
 import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
@@ -62,11 +64,14 @@ const BlogDetails: NextPage<Props> = ({ blog }: Props) => {
   );
 };
 
+interface Params extends ParsedUrlQuery {
+  slug: string;
+}
+
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const {
-    locale,
-    params: { id },
-  } = ctx;
+  const { locale } = ctx;
+
+  const { id } = ctx.params as Params;
 
   if (!locale) return { props: {} };
 
