@@ -27,7 +27,7 @@ const BlogDetails = ({ blog }: Props) => {
 
   return (
     <Link
-      className="max-w-md rounded-sm bg-offWhite"
+      className="w-full rounded-sm bg-offWhite"
       href={{ pathname: `/blog/${blog.id}` }}
       locale={locale}
     >
