@@ -1,5 +1,5 @@
 import nookies from "nookies";
-import React, { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
 
 const User = createContext({ user: null, loading: false });
 
@@ -18,16 +18,16 @@ export const UserProvider = ({ value, children }) => {
 };
 
 export const getUser = (ctx) => {
-  const cookies = nookies.get(ctx)
+  const cookies = nookies.get(ctx);
 
   let user = null;
 
   if (cookies.jwt) {
     user = JSON.parse(cookies.user);
-    return {...user, jwt: cookies.jwt}
+    return { ...user, jwt: cookies.jwt };
   }
 
-  return {user, jwt: null }
+  return { user, jwt: null };
 };
 
 export const useAuthContext = () => useContext(User);

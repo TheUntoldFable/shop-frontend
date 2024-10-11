@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { VscChromeClose } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 
 import { useAppDispatch } from "@/helpers/store";
+import { UIContext } from "@/store/contexts/ui";
 import { useAppSelector } from "@/store/hooks";
 import { setShowBanner } from "@/store/uiSlice";
 import { selectWishlistItems } from "@/store/wishlistSlice";
@@ -24,6 +25,7 @@ import MenuMobile from "./MenuMobile";
 const Header = () => {
   const dispatch = useAppDispatch();
   const { locale } = useRouter();
+  const uiContext = useContext(UIContext);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -74,7 +76,7 @@ const Header = () => {
   };
 
   return (
-    <>
+    <div ref={uiContext.containerRef}>
       <Banner />
       <header
         className={`
@@ -255,7 +257,7 @@ const Header = () => {
           />
         </div>
       </header>
-    </>
+    </div>
   );
 };
 

@@ -1,8 +1,10 @@
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { memo } from "react";
+import { memo, useContext, useLayoutEffect, useRef, useState } from "react";
 
 import BlogsSection from "@/components/blog/BlogsSection";
 import FeaturedBlog from "@/components/blog/FeaturedBlog";
@@ -11,6 +13,7 @@ import PageEmpty from "@/components/PageEmpty";
 import Wrapper from "@/components/Wrapper";
 import type { Blog } from "@/models/blog";
 import { fetchDataFromApi } from "@/utils/api";
+import { UIContext } from "@/store/contexts/ui";
 
 interface Props {
   blogs: { data: Blog[] };
@@ -29,9 +32,34 @@ const BlogPage: NextPage<Props> = ({
 
   const hasFeaturedBlogs = featuredBlogs?.data.length > 0;
   const hasBlogs = allBlogs?.data.length > 0;
+  const uiContext = useContext(UIContext);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [headerHeightVH, setHeaderHeightVH] = useState(0);
+
+  useLayoutEffect(() => {
+    if (uiContext?.containerRef.current) {
+      // Get the div height in pixels
+      const height = uiContext.containerRef.current.offsetHeight;
+
+      // If you want the height in viewport height (vh):
+      const vh = (height / window.innerHeight) * 100;
+      setHeaderHeightVH(vh);
+    }
+  }, [uiContext]);
 
   return (
     <Container>
+      <div
+        ref={containerRef}
+        /*     style={{
+                       height: `${100 - headerHeightVH}vh`,
+                     }}*/
+      >
+        <div className="flex flex-1 mt-12 flex-col justify-around items-center h-full">
+          <h1 className="text-center font-bold">Our blogs!</h1>
+          <FontAwesomeIcon size="4x" icon={faCaretDown} />
+        </div>
+      </div>
       <Wrapper className="p-4 h-full my-14 flex flex-col gap-24">
         {locale !== "it" && hasBlogs ? (
           <>

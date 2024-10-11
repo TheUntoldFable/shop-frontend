@@ -11,7 +11,6 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
   const { locale } = useRouter();
 
   const isDev = process.env.NODE_ENV !== "development";
-  console.log(isDev, "isdev");
 
   const navItems = [
     { id: 1, name: t("home"), url: `/${locale}` },

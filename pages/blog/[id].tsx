@@ -34,11 +34,13 @@ const BlogDetails: NextPage<Props> = ({ blog }: Props) => {
 
   return (
     <Container>
-      <Wrapper className="py-12">
+      <Wrapper className="py-12 break-words">
         <div className="flex flex-col pb-4">
-          <p className="text-offWhite mb-12 text-[20px] font-semibold capitalize">
-            {t("minutes_read", { count: minutesRead })}
-          </p>
+          <div className="mb-12 w-fit bg-offWhite p-1 rounded-md">
+            <p className="text-darkBlack text-md font-semibold uppercase">
+              {t("minutes_read", { count: minutesRead })}
+            </p>
+          </div>
           <h1 className="font-semibold">{title}</h1>
           <p className="mb-4">• {`${monthName} ${day}, ${year}`}</p>
           <div className="relative aspect-[16/9] max-h-[500px]">
@@ -51,11 +53,6 @@ const BlogDetails: NextPage<Props> = ({ blog }: Props) => {
             />
           </div>
         </div>
-
-        {/* <div style={{
-          whiteSpace: 'normal',
-          wordBreak: 'break-word'
-        }} dangerouslySetInnerHTML={{ __html: content }}></div> */}
         <Markdown className="prose p-4 text-[18px] text-offWhite">
           {String(content) ?? "No content"}
         </Markdown>

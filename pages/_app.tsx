@@ -12,6 +12,7 @@ import Layout from "@/components/Layout";
 import { persistor, rootReducer } from "@/store/store";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { UIProvider } from "@/store/contexts/ui";
 
 config.autoAddCss = false;
 
@@ -36,7 +37,9 @@ function App({ Component, pageProps }: AppProps) {
       <ThemeProvider>
         <Provider store={rootReducer}>
           <PersistGate persistor={persistor}>
-            <Layout component={Component} pageProps={pageProps} />
+            <UIProvider>
+              <Layout component={Component} pageProps={pageProps} />
+            </UIProvider>
           </PersistGate>
         </Provider>
       </ThemeProvider>

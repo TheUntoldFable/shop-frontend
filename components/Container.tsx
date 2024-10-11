@@ -8,7 +8,7 @@ interface ContainerProps {
 
 export default function Container({ children }: ContainerProps) {
   return (
-    <div className="flex flex-1 flex-col justify-between min-h-[100vh]">
+    <div className="flex flex-1 flex-col justify-between min-h-screen">
       <Header />
       {children}
       <Footer />
