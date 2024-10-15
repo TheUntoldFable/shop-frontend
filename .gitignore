@@ -31,3 +31,15 @@ yarn-error.log*
 
 # vercel
 .vercel
+/.idea/aws.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/dbnavigator.xml
+/.idea/git_toolbox_blame.xml
+/.idea/material_theme_project_new.xml
+/.idea/prettier.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/codeStyles/Project.xml
+/.idea/stylesheetLinters/stylelint.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
+/.idea/jsLinters/eslint.xml
