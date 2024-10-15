@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 
-import { handlePayment } from '@/pages/api/checkout/payments'
+import {handlePayment} from '@/pages/api/checkout/payments'
 
-import { revertAll } from './rootReducer'
+import {revertAll} from './rootReducer'
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cartItems: Array<any[]>
 }
 
-const initialState:Props = { cartItems: [] }
+const initialState: Props = { cartItems: [] }
 
 export const cartSlice = createSlice({
   name: 'cart',

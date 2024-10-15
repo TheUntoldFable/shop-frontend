@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useEffect, useState } from 'react'
+import {useRouter} from 'next/router'
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
+import {useEffect, useState} from 'react'
 import useSWR from 'swr'
 
 import Container from '@/components/Container'
 import ProductCard from '@/components/ProductCard'
 import Wrapper from '@/components/Wrapper'
-import { fetchDataFromApi } from '@/utils/api'
-
-
+import {fetchDataFromApi} from '@/utils/api'
 
 
 const Category = ({ category, products, slug }) => {
@@ -31,10 +29,10 @@ const Category = ({ category, products, slug }) => {
 
   return (
     <Container>
-      <div className="w-full md:py-20 relative">
+      <div className="w-full relative">
         <Wrapper>
-          <div className="text-center max-w-[800px]mx-auto mt-8 md:mt-0">
-            <div className="text-[28px] md:text-[34px] mb-5 font-semibold leading-tight">
+          <div className="text-center max-w-[800px]mx-auto">
+            <div className="text-[28px] md:text-[34px] pt-10 mb-5 font-semibold leading-tight">
               {category?.data?.[0]?.attributes?.name}
             </div>
           </div>

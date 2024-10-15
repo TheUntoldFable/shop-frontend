@@ -1,27 +1,27 @@
-import Router from 'next/router'
-import { setCookie, destroyCookie } from 'nookies'
+import Router from "next/router";
+import { destroyCookie, setCookie } from "nookies";
 
 export const setToken = (token) => {
-  if (!token) return
+  if (!token) return;
 
-  setCookie({ token }, 'jwt', token.data.jwt, {
+  setCookie({ token }, "jwt", token.data.jwt, {
     httpOnly: false,
-    secure: process.env.NODE_ENV !== 'development',
+    secure: process.env.NODE_ENV !== "development",
     maxAge: 30 * 24 * 60 * 60,
-    path: '/'
-  })
+    path: "/",
+  });
 
-  setCookie({ token }, 'user', JSON.stringify(token.data.user), {
+  setCookie({ token }, "user", JSON.stringify(token.data.user), {
     httpOnly: false,
-    secure: process.env.NODE_ENV !== 'development',
+    secure: process.env.NODE_ENV !== "development",
     maxAge: 30 * 24 * 60 * 60,
-    path: '/'
-  })
-}
+    path: "/",
+  });
+};
 
-export const logOut = (token) => {
-  destroyCookie(token, 'jwt')
-  destroyCookie(token, 'user')
+export const logOut = async (ctx) => {
+  destroyCookie(ctx, "jwt");
+  destroyCookie(ctx, "user");
 
-  Router.replace('/')
-}
+  Router.replace("/");
+};

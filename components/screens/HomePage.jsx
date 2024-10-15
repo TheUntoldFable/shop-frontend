@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useTranslation } from 'next-i18next'
-import { ToastContainer } from 'react-toastify'
+import {useTranslation} from 'next-i18next'
+import {ToastContainer} from 'react-toastify'
 
 import ClimateSection from '../ClimateSection'
 import HeroBanner from '../HeroBanner'
@@ -10,7 +10,7 @@ import Wrapper from '../Wrapper'
 
 export default function HomePage({ shirts, productsNoShirt }) {
   const { t } = useTranslation('common')
-  
+
   return (
     <div>
       <ToastContainer />
