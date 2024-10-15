@@ -17,6 +17,7 @@ const MenuMobile = ({
     { id: 2, name: t('about'), url: '/about' },
     { id: 3, name: t('category'), subMenu: true },
     { id: 4, name: t('contact'), url: '/contact' }
+    /*{ id: 5, name: t('blog'), url: '/blogs' }*/
   ]
 
   return (
