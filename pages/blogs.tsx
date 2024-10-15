@@ -50,8 +50,8 @@ const BlogPage: NextPage<Props> = ({
       <div
         ref={containerRef}
         /*        style={{
-                                                                                                                          height: `${100 - headerHeightVH}vh`
-                                                                                                                        }}*/
+                                                                                                                                  height: `${100 - headerHeightVH}vh`
+                                                                                                                                }}*/
       >
         {/*<div className="flex flex-1 mt-12 flex-col justify-around items-center h-full">*/}
         {/*  <h1 className="text-center font-bold">Our blogs!</h1>*/}
