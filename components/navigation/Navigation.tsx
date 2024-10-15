@@ -1,104 +1,104 @@
-import type { Variant } from "framer-motion";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { BiMenuAltRight } from "react-icons/bi";
-import { VscChromeClose } from "react-icons/vsc";
-import { useSelector } from "react-redux";
+import type { Variant } from 'framer-motion'
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { BiMenuAltRight } from 'react-icons/bi'
+import { VscChromeClose } from 'react-icons/vsc'
+import { useSelector } from 'react-redux'
 
-import type { RootState } from "@/helpers/store";
-import { useAppDispatch } from "@/helpers/store";
-import useWindowSize from "@/hooks/useWindowSize";
-import { useAppSelector } from "@/store/hooks";
-import { setShowBanner } from "@/store/uiSlice";
-import { selectWishlistItems } from "@/store/wishlistSlice";
-import { fetchDataFromApi } from "@/utils/api";
+import type { RootState } from '@/helpers/store'
+import { useAppDispatch } from '@/helpers/store'
+import useWindowSize from '@/hooks/useWindowSize'
+import { useAppSelector } from '@/store/hooks'
+import { setShowBanner } from '@/store/uiSlice'
+import { selectWishlistItems } from '@/store/wishlistSlice'
+import { fetchDataFromApi } from '@/utils/api'
 
-import Additional from "./Additional";
-import Spacer from "../generic/Spacer";
-import LanguageSwitcher from "../lang/LanguageSwitcher";
-import Menu from "../Menu";
-import MenuMobile from "../MenuMobile";
+import Additional from './Additional'
+import Spacer from '../generic/Spacer'
+import LanguageSwitcher from '../lang/LanguageSwitcher'
+import Menu from '../Menu'
+import MenuMobile from '../MenuMobile'
 
 const Navigation = () => {
-  const dispatch = useAppDispatch();
-  const { locale } = useRouter();
-  const { scrollY } = useScroll();
-  const [hidden, setHidden] = useState(false);
-  const { isMobile, isTablet } = useWindowSize();
+  const dispatch = useAppDispatch()
+  const { locale } = useRouter()
+  const { scrollY } = useScroll()
+  const [ hidden, setHidden ] = useState(false)
+  const { isMobile, isTablet } = useWindowSize()
 
-  const { cartItems } = useSelector((state: RootState) => state.cart);
-  const wishlistItems = useAppSelector(selectWishlistItems);
+  const { cartItems } = useSelector((state: RootState) => state.cart)
+  const wishlistItems = useAppSelector(selectWishlistItems)
 
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [showCatMenu, setShowCatMenu] = useState(false);
-  const [categories, setCategories] = useState(null);
+  const [ mobileMenu, setMobileMenu ] = useState(false)
+  const [ showCatMenu, setShowCatMenu ] = useState(false)
+  const [ categories, setCategories ] = useState(null)
 
   const fetchCategories = async () => {
     const { data } = await fetchDataFromApi(
-      `/api/categories?populate=*&locale=${locale}`,
-    );
-    setCategories(data);
-  };
+      `/api/categories?populate=*&locale=${locale}`
+    )
+    setCategories(data)
+  }
 
-  useMotionValueEvent(scrollY, "change", (current) => {
-    const previous = scrollY.getPrevious();
+  useMotionValueEvent(scrollY, 'change', (current) => {
+    const previous = scrollY.getPrevious()
 
     if (current > previous && current > 35 && !isTablet && !isMobile) {
-      setHidden(true);
+      setHidden(true)
     } else {
-      setHidden(false);
+      setHidden(false)
     }
-  });
+  })
 
   useEffect(() => {
-    fetchCategories().then();
-  }, [locale]);
+    fetchCategories().then()
+  }, [ locale ])
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(setShowBanner(true));
-    }, 900000);
+      dispatch(setShowBanner(true))
+    }, 900000)
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
-  let variants: Record<string, { visible: Variant; hidden: Variant }> = {};
+  let variants: Record<string, { visible: Variant; hidden: Variant }> = {}
 
   if (!isMobile && !isTablet) {
     variants = {
       header: {
         visible: { height: 200, y: 0 },
-        hidden: { height: 0, y: -400 },
+        hidden: { height: 0, y: -400 }
       },
       upper: {
         visible: { y: 0, height: 130 },
-        hidden: { height: 0, y: 0 },
+        hidden: { height: 0, y: 0 }
       },
       lower: {
         visible: { y: 0, opacity: 1 },
-        hidden: { y: -200, opacity: 0 },
+        hidden: { y: -200, opacity: 0 }
       },
       additional: {
         visible: { y: 0, opacity: 1 },
-        hidden: { y: -200, opacity: 0 },
+        hidden: { y: -200, opacity: 0 }
       },
       lowerSides: {
         visible: { opacity: 0 },
-        hidden: { opacity: 1 },
-      },
-    };
+        hidden: { opacity: 1 }
+      }
+    }
   }
 
   return (
     <div>
       <motion.header
         variants={variants.header}
-        transition={{ duration: 0.35, ease: "anticipate" }}
+        transition={{ duration: 0.35, ease: 'anticipate' }}
         className={`
-        ${"bg-gradient-to-r from-[#0ba360] to-[#3cba92]"}
+        ${'bg-gradient-to-r from-[#0ba360] to-[#3cba92]'}
         w-full
         pb-1
         flex
@@ -112,15 +112,15 @@ const Navigation = () => {
         `}
       >
         <motion.div
-          animate={hidden ? "hidden" : "visible"}
+          animate={hidden ? 'hidden' : 'visible'}
           variants={variants.upper}
-          transition={{ duration: 0.35, ease: "anticipate" }}
+          transition={{ duration: 0.35, ease: 'anticipate' }}
           className="w-full  md:max-h-full max-h-12 z-12 bg-darkBlack"
         >
           <motion.div
-            animate={hidden ? "hidden" : "visible"}
+            animate={hidden ? 'hidden' : 'visible'}
             variants={variants.lower}
-            transition={{ duration: 0.35, ease: "anticipate" }}
+            transition={{ duration: 0.35, ease: 'anticipate' }}
             className="flex justify-between items-center w-full px-4 "
           >
             <div className="flex gap-6 justify-between items-center">
@@ -148,9 +148,9 @@ const Navigation = () => {
             <div className="flex items-center">
               {/* Icon start */}
               <Additional
-                animate={hidden ? "hidden" : "visible"}
+                animate={hidden ? 'hidden' : 'visible'}
                 variants={variants.additional}
-                transition={{ duration: 0.35, ease: "anticipate" }}
+                transition={{ duration: 0.35, ease: 'anticipate' }}
                 wishlistItems={wishlistItems}
                 cartItems={cartItems}
               />
@@ -192,9 +192,9 @@ const Navigation = () => {
           {!isMobile && !isTablet && (
             <>
               <motion.div
-                animate={hidden ? "hidden" : "visible"}
+                animate={hidden ? 'hidden' : 'visible'}
                 variants={variants.lowerSides}
-                transition={{ duration: 0.35, ease: "anticipate" }}
+                transition={{ duration: 0.35, ease: 'anticipate' }}
                 className="flex gap-6 justify-between items-center"
               >
                 <Link href="/">
@@ -214,9 +214,9 @@ const Navigation = () => {
                 categories={categories}
               />
               <Additional
-                animate={hidden ? "hidden" : "visible"}
+                animate={hidden ? 'hidden' : 'visible'}
                 variants={variants.lowerSides}
-                transition={{ duration: 0.35, ease: "anticipate" }}
+                transition={{ duration: 0.35, ease: 'anticipate' }}
                 cartItems={cartItems}
                 wishlistItems={wishlistItems}
               />
@@ -225,7 +225,7 @@ const Navigation = () => {
         </div>
       </motion.header>
     </div>
-  );
-};
+  )
+}
 
-export default Navigation;
+export default Navigation

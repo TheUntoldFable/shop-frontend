@@ -1,16 +1,16 @@
-import { Tab, Tabs, TabsHeader } from "@material-tailwind/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { Tab, Tabs, TabsHeader } from '@material-tailwind/react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useCallback } from 'react'
 
-import { useAppDispatch } from "@/helpers/store";
-import { revertAll } from "@/store/rootReducer";
+import { useAppDispatch } from '@/helpers/store'
+import { revertAll } from '@/store/rootReducer'
 
 const options = [
-  { label: "en", value: "en" },
-  { label: "it", value: "it" },
-  { label: "bg", value: "bg" },
-];
+  { label: 'en', value: 'en' },
+  { label: 'it', value: 'it' },
+  { label: 'bg', value: 'bg' }
+]
 
 interface Props {
   isHeader?: boolean;
@@ -21,12 +21,12 @@ interface Props {
 export default function LanguageSwitcher({
   isHeader,
   textColor,
-  borderColor,
+  borderColor
 }: Props) {
-  const { locale } = useRouter();
-  const dispatch = useAppDispatch();
+  const { locale } = useRouter()
+  const dispatch = useAppDispatch()
 
-  const handleOnClick = useCallback(() => dispatch(revertAll()), [locale]);
+  const handleOnClick = useCallback(() => dispatch(revertAll()), [ locale ])
 
   if (isHeader)
     return (
@@ -35,14 +35,14 @@ export default function LanguageSwitcher({
           className="rounded-none  bg-transparent p-0"
           indicatorProps={{
             className: `bg-transparent border-b-2 ${
-              borderColor ?? "border-offWhite"
-            } shadow-none rounded-none`,
+              borderColor ?? 'border-offWhite'
+            } shadow-none rounded-none`
           }}
         >
           {options.map(({ label, value }) => (
             <Tab
               className={`${
-                textColor ?? "text-offWhite"
+                textColor ?? 'text-offWhite'
               } font-bold text-[10px] sm:text-[16px] h-5 sm:h-7`}
               key={value}
               value={value}
@@ -59,7 +59,7 @@ export default function LanguageSwitcher({
           ))}
         </TabsHeader>
       </Tabs>
-    );
+    )
 
   return (
     <div className="flex gap-10 justify-center items-center">
@@ -69,7 +69,7 @@ export default function LanguageSwitcher({
           locale={option.value}
           className={`transition ease-in-out border-[1px] w-10 h-10 rounded-md flex items-center justify-center hover:bg-gray-500/[0.5] ${
             option.value === locale
-              ? "bg-gradient-to-r from-[#0ba360] to-[#3cba92]"
+              ? 'bg-gradient-to-r from-[#0ba360] to-[#3cba92]'
               : null
           }`}
           key={`${option.label}-${index}`}
@@ -78,5 +78,5 @@ export default function LanguageSwitcher({
         </Link>
       ))}
     </div>
-  );
+  )
 }

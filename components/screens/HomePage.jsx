@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import {useTranslation} from 'next-i18next'
-import {ToastContainer} from 'react-toastify'
+import { useTranslation } from 'next-i18next'
+import { ToastContainer } from 'react-toastify'
 
 import ClimateSection from '../ClimateSection'
 import HeroBanner from '../HeroBanner'

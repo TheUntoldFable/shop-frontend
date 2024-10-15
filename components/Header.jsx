@@ -1,82 +1,82 @@
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
-import { BiMenuAltRight } from "react-icons/bi";
-import { IoMdHeartEmpty } from "react-icons/io";
-import { VscChromeClose } from "react-icons/vsc";
-import { useSelector } from "react-redux";
+import { faUser } from '@fortawesome/free-regular-svg-icons'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useContext, useEffect, useState } from 'react'
+import { BiMenuAltRight } from 'react-icons/bi'
+import { IoMdHeartEmpty } from 'react-icons/io'
+import { VscChromeClose } from 'react-icons/vsc'
+import { useSelector } from 'react-redux'
 
-import { useAppDispatch } from "@/helpers/store";
-import { UIContext } from "@/store/contexts/ui";
-import { useAppSelector } from "@/store/hooks";
-import { setShowBanner } from "@/store/uiSlice";
-import { selectWishlistItems } from "@/store/wishlistSlice";
-import { fetchDataFromApi } from "@/utils/api";
+import { useAppDispatch } from '@/helpers/store'
+import { UIContext } from '@/store/contexts/ui'
+import { useAppSelector } from '@/store/hooks'
+import { setShowBanner } from '@/store/uiSlice'
+import { selectWishlistItems } from '@/store/wishlistSlice'
+import { fetchDataFromApi } from '@/utils/api'
 
-import Banner from "./Banner";
-import LanguageSwitcher from "./lang/LanguageSwitcher";
-import Menu from "./Menu";
-import MenuMobile from "./MenuMobile";
+import Banner from './Banner'
+import LanguageSwitcher from './lang/LanguageSwitcher'
+import Menu from './Menu'
+import MenuMobile from './MenuMobile'
 
-const Header = () => {
-  const dispatch = useAppDispatch();
-  const { locale } = useRouter();
-  const uiContext = useContext(UIContext);
+const Header = (props) => {
+  const dispatch = useAppDispatch()
+  const { locale } = useRouter()
+  const uiContext = useContext(UIContext)
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(setShowBanner(true));
-    }, 900000);
+      dispatch(setShowBanner(true))
+    }, 900000)
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [showCatMenu, setShowCatMenu] = useState(false);
-  const [show, setShow] = useState("translate-y-0");
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [categories, setCategories] = useState(null);
+  const [ mobileMenu, setMobileMenu ] = useState(false)
+  const [ showCatMenu, setShowCatMenu ] = useState(false)
+  const [ show, setShow ] = useState('translate-y-0')
+  const [ lastScrollY, setLastScrollY ] = useState(0)
+  const [ categories, setCategories ] = useState(null)
 
-  const { cartItems } = useSelector((state) => state.cart);
-  const wishlistItems = useAppSelector(selectWishlistItems);
+  const { cartItems } = useSelector((state) => state.cart)
+  const wishlistItems = useAppSelector(selectWishlistItems)
 
   const controlNavbar = () => {
     if (window.scrollY > 200) {
       if (window.scrollY > lastScrollY && !mobileMenu) {
-        setShow("-translate-y-[80px]");
+        setShow('-translate-y-[80px]')
       } else {
-        setShow("shadow-sm");
+        setShow('shadow-sm')
       }
     } else {
-      setShow("translate-y-0");
+      setShow('translate-y-0')
     }
-    setLastScrollY(window.scrollY);
-  };
+    setLastScrollY(window.scrollY)
+  }
 
   useEffect(() => {
-    window.addEventListener("scroll", controlNavbar);
+    window.addEventListener('scroll', controlNavbar)
     return () => {
-      window.removeEventListener("scroll", controlNavbar);
-    };
-  }, [lastScrollY]);
+      window.removeEventListener('scroll', controlNavbar)
+    }
+  }, [ lastScrollY ])
 
   useEffect(() => {
-    fetchCategories().then();
-  }, [locale]);
+    fetchCategories().then()
+  }, [ locale ])
 
   const fetchCategories = async () => {
     const { data } = await fetchDataFromApi(
-      `/api/categories?populate=*&locale=${locale}`,
-    );
-    setCategories(data);
-  };
+      `/api/categories?populate=*&locale=${locale}`
+    )
+    setCategories(data)
+  }
 
   return (
-    <div ref={uiContext.containerRef}>
+    <div className={props.className} ref={uiContext.containerRef}>
       <Banner />
       <header
         className={`
@@ -258,7 +258,7 @@ const Header = () => {
         </div>
       </header>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

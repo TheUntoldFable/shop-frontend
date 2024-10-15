@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import {motion, useInView} from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
-import {useTranslation} from 'next-i18next'
-import {useRef} from 'react'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { useRef } from 'react'
 
 import useCurrency from '@/hooks/useCurrency'
 import useWindowSize from '@/hooks/useWindowSize'
-import {fadeIn} from '@/utils/animations'
-import {getDiscountedPricePercentage} from '@/utils/helper'
+import { fadeIn } from '@/utils/animations'
+import { getDiscountedPricePercentage } from '@/utils/helper'
 
 const ProductCard = ({
   data: { attributes: p },

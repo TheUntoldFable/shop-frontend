@@ -1,5 +1,5 @@
-import Footer from "./Footer";
-import Header from "./Header";
+import Footer from './Footer'
+import Header from './Header'
 
 interface ContainerProps {
   className?: string;
@@ -13,5 +13,5 @@ export default function Container({ children }: ContainerProps) {
       {children}
       <Footer />
     </div>
-  );
+  )
 }

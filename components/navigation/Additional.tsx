@@ -1,8 +1,9 @@
-import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion, MotionProps } from "framer-motion";
-import Link from "next/link";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import type { MotionProps } from 'framer-motion'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { IoMdHeartEmpty } from 'react-icons/io'
 
 interface Props extends MotionProps {
   cartItems: unknown[];
@@ -95,7 +96,7 @@ function Additional({ cartItems, wishlistItems, ...props }: Props) {
       </Link>
       {/* Icon end */}
     </motion.div>
-  );
+  )
 }
 
-export default Additional;
+export default Additional

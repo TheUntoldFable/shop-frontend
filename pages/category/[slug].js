@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
-import {useRouter} from 'next/router'
-import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
-import {useEffect, useState} from 'react'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 import Container from '@/components/Container'
 import ProductCard from '@/components/ProductCard'
 import Wrapper from '@/components/Wrapper'
-import {fetchDataFromApi} from '@/utils/api'
-
+import { fetchDataFromApi } from '@/utils/api'
 
 const Category = ({ category, products, slug }) => {
   const [ pageIndex, setPageIndex ] = useState(1)
@@ -99,7 +98,12 @@ export async function getServerSideProps({ params: { slug }, locale }) {
       category,
       products,
       slug,
-      ...(await serverSideTranslations(locale, [ 'footer', 'nav', 'buttons','banner' ]))
+      ...(await serverSideTranslations(locale, [
+        'footer',
+        'nav',
+        'buttons',
+        'banner'
+      ]))
     }
   }
 }

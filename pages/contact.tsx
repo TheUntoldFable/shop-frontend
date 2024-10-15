@@ -1,56 +1,56 @@
-import { Input, Textarea } from "@material-tailwind/react";
-import { ErrorMessage, Form, Formik } from "formik";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import * as Yup from "yup";
+import { Input, Textarea } from '@material-tailwind/react'
+import { ErrorMessage, Form, Formik } from 'formik'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+import * as Yup from 'yup'
 
-import Container from "@/components/Container";
-import Wrapper from "@/components/Wrapper";
-import { sendContactEmail } from "@/utils/emailAPI";
-import { emailRegex } from "@/utils/regex";
-import { errorConfig, successConfig } from "@/utils/toastConfig";
+import Container from '@/components/Container'
+import Wrapper from '@/components/Wrapper'
+import { sendContactEmail } from '@/utils/emailAPI'
+import { emailRegex } from '@/utils/regex'
+import { errorConfig, successConfig } from '@/utils/toastConfig'
 
 export default function Contact() {
-  const { t } = useTranslation(["forms", "buttons"]);
+  const { t } = useTranslation([ 'forms', 'buttons' ])
 
   const initialValues = {
-    name: "",
-    email: "",
-    subject: "",
-    phone: "",
-    message: "",
-  };
+    name: '',
+    email: '',
+    subject: '',
+    phone: '',
+    message: ''
+  }
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required(t("name_required")),
-    subject: Yup.string().required(t("subject_required")),
+    name: Yup.string().required(t('name_required')),
+    subject: Yup.string().required(t('subject_required')),
     email: Yup.string()
-      .required(t("email_required"))
-      .matches(emailRegex, t("email_incorrect")),
-    phone: Yup.number().typeError(t("phone_incorrect")).notRequired(),
+      .required(t('email_required'))
+      .matches(emailRegex, t('email_incorrect')),
+    phone: Yup.number().typeError(t('phone_incorrect')).notRequired(),
     message: Yup.string()
-      .required(t("message_required"))
-      .min(10, t("message_min")),
-  });
+      .required(t('message_required'))
+      .min(10, t('message_min'))
+  })
 
-  const [contactForm, setContactForm] = useState({ ...initialValues });
+  const [ contactForm, setContactForm ] = useState({ ...initialValues })
 
-  const isEmptyForm = Object.values(contactForm).some((k) => k.length < 1);
+  const isEmptyForm = Object.values(contactForm).some((k) => k.length < 1)
 
   const handleFormChange = (e) => {
-    setContactForm({ ...contactForm, [e.target.name]: e.target.value });
-  };
+    setContactForm({ ...contactForm, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = async () => {
     try {
-      await sendContactEmail(contactForm);
-      toast.success(t("email_sent", { ns: "buttons" }), successConfig);
+      await sendContactEmail(contactForm)
+      toast.success(t('email_sent', { ns: 'buttons' }), successConfig)
     } catch (error) {
-      toast.error(t("email_failed", { ns: "buttons" }), errorConfig);
+      toast.error(t('email_failed', { ns: 'buttons' }), errorConfig)
     }
-  };
+  }
 
   return (
     <Container>
@@ -64,7 +64,7 @@ export default function Contact() {
                   <div className="flex flex-row items-center gap-2">
                     <i className="fa-solid fa-envelope-open-text" />
                     <p className=" text-xl text-transparent font-semibold leading-5 ">
-                      {t("email_contact")}
+                      {t('email_contact')}
                     </p>
                   </div>
                   <p className=" font-normal text-base leading-6 text-gray-600 my-4">
@@ -76,7 +76,7 @@ export default function Contact() {
           </div>
           <div className="bg-offWhite rounded-md p-8 shadow-md">
             <h2 className="text-center text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-t from-[#0ba360] to-[#3cba92]">
-              {t("contact_us")}
+              {t('contact_us')}
             </h2>
             <Formik
               initialValues={initialValues}
@@ -88,7 +88,7 @@ export default function Contact() {
                   <div className="mb-4">
                     <Input
                       className="bg-white"
-                      label={t("firstName")}
+                      label={t('firstName')}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={!!errors.name}
@@ -106,7 +106,7 @@ export default function Contact() {
                   </div>
                   <div className="mb-4">
                     <Input
-                      label={t("email")}
+                      label={t('email')}
                       error={!!errors.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -128,7 +128,7 @@ export default function Contact() {
                       error={!!errors.phone}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      label={t("phoneNumber")}
+                      label={t('phoneNumber')}
                       type="tel"
                       id="phone"
                       name="phone"
@@ -149,7 +149,7 @@ export default function Contact() {
                       onBlur={handleBlur}
                       id="subject"
                       name="subject"
-                      label={t("subject")}
+                      label={t('subject')}
                       className="bg-white"
                     />
                     <ErrorMessage
@@ -165,7 +165,7 @@ export default function Contact() {
                       error={!!errors.message}
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      label={t("message")}
+                      label={t('message')}
                       id="message"
                       name="message"
                       className="bg-white"
@@ -182,8 +182,8 @@ export default function Contact() {
                     type="submit"
                     className={`${
                       isValid || !isEmptyForm
-                        ? "bg-gradient-to-t from-[#0ba360] to-[#3cba92] cursor-pointer"
-                        : "bg-darkBlack/[0.2] pointer-events-none"
+                        ? 'bg-gradient-to-t from-[#0ba360] to-[#3cba92] cursor-pointer'
+                        : 'bg-darkBlack/[0.2] pointer-events-none'
                     } 
                     text-white 
                     drop-shadow-lg 
@@ -194,7 +194,7 @@ export default function Contact() {
                     focus:outline-none 
                     focus:shadow-outline`}
                   >
-                    {t("send", { ns: "buttons" })}
+                    {t('send', { ns: 'buttons' })}
                   </button>
                 </Form>
               )}
@@ -203,21 +203,21 @@ export default function Contact() {
         </div>
       </Wrapper>
     </Container>
-  );
+  )
 }
 
 export async function getServerSideProps(ctx) {
-  const { locale } = ctx;
+  const { locale } = ctx
 
   return {
     props: {
       ...(await serverSideTranslations(locale, [
-        "footer",
-        "nav",
-        "buttons",
-        "forms",
-        "banner",
-      ])),
-    },
-  };
+        'footer',
+        'nav',
+        'buttons',
+        'forms',
+        'banner'
+      ]))
+    }
+  }
 }
