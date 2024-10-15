@@ -1,6 +1,6 @@
 import type { ParsedUrlQuery } from 'querystring'
 
-import format from 'date-fns/format'
+import { format } from 'date-fns'
 import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
@@ -11,7 +11,6 @@ import Container from '@/components/Container'
 import Wrapper from '@/components/Wrapper'
 import type { Blog } from '@/models/blog'
 import { fetchDataFromApi } from '@/utils/api'
-
 
 interface Props {
   blog: { data: Blog[] };
