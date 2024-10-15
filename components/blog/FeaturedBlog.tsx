@@ -1,4 +1,4 @@
-import format from 'date-fns/format'
+import { format } from 'date-fns'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
