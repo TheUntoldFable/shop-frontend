@@ -1,9 +1,9 @@
-import { Textarea, Input } from '@material-tailwind/react'
+import { Input, Textarea } from '@material-tailwind/react'
 import { ErrorMessage, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import * as Yup from 'yup'
 
 import Container from '@/components/Container'
@@ -86,13 +86,11 @@ export default function Contact() {
               {({ isValid, errors, handleBlur, handleChange }) => (
                 <Form onChange={handleFormChange}>
                   <div className="mb-4">
-
                     <Input
                       className="bg-white"
                       label={t('firstName')}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      crossOrigin="anonymous"
                       error={!!errors.name}
                       type="text"
                       id="name"
@@ -109,7 +107,6 @@ export default function Contact() {
                   <div className="mb-4">
                     <Input
                       label={t('email')}
-                      crossOrigin="anonymous"
                       error={!!errors.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -128,7 +125,6 @@ export default function Contact() {
                   </div>
                   <div className="mb-4">
                     <Input
-                      crossOrigin="anonymous"
                       error={!!errors.phone}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -148,7 +144,6 @@ export default function Contact() {
                   </div>
                   <div className="mb-4">
                     <Input
-                      crossOrigin="anonymous"
                       error={!!errors.subject}
                       onChange={handleChange}
                       onBlur={handleBlur}

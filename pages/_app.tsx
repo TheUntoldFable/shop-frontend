@@ -6,17 +6,17 @@ import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/lib/integration/react'
-
 import '@/styles/globals.css'
 
+// eslint-disable-next-line import/order
 import Layout from '@/components/Layout'
-import { persistor , rootReducer } from '@/store/store'
-
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
-config.autoAddCss = false
+import { UIProvider } from '@/store/contexts/ui'
+import { persistor, rootReducer } from '@/store/store'
 
+config.autoAddCss = false
 
 const Euclid = localFont({
   src: [
@@ -43,23 +43,24 @@ function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Troyka Wear</title>
-        <meta name="p:domain_verify" content="f7520b69448e23b11a83c47c55fce461"/>
+        <meta
+          name="p:domain_verify"
+          content="f7520b69448e23b11a83c47c55fce461"
+        />
         <meta name="description" content="Omne Trium Perfectum" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
       </Head>
       <ThemeProvider>
         <Provider store={rootReducer}>
           <PersistGate persistor={persistor}>
-            <main className={Euclid.className}>
-              <Layout component={Component} pageProps={pageProps} />
-            </main>
+            <UIProvider>
+              <main className={Euclid.className}>
+                <Layout component={Component} pageProps={pageProps} />
+              </main>
+            </UIProvider>
           </PersistGate>
         </Provider>
       </ThemeProvider>
