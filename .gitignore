@@ -42,3 +42,4 @@ yarn-error.log*
 /.idea/workspace.xml
 /.idea/stylesheetLinters/stylelint.xml
 /.idea/prettier.xml
+/.idea/jsLinters/eslint.xml
