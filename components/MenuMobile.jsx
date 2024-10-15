@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import Link from 'next/link'
-import {useTranslation} from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
-import {BsChevronDown} from 'react-icons/bs'
+import { BsChevronDown } from 'react-icons/bs'
 
 const MenuMobile = ({
   showCatMenu,

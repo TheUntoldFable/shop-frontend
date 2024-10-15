@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import Link from 'next/link'
-import {useTranslation} from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
-import {BsChevronDown} from 'react-icons/bs' // eslint-disable-next-line react/prop-types
+import { BsChevronDown } from 'react-icons/bs' // eslint-disable-next-line react/prop-types
 
 // eslint-disable-next-line react/prop-types
 const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
