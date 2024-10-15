@@ -1,21 +1,23 @@
-import { XMarkIcon } from "@heroicons/react/20/solid";
-import { useTranslation } from "next-i18next";
+import { XMarkIcon } from '@heroicons/react/20/solid'
+import { useTranslation } from 'next-i18next'
 
-import { useAppDispatch } from "@/helpers/store";
-import useCurrency from "@/hooks/useCurrency";
-import useWindowSize from "@/hooks/useWindowSize";
-import { useAppSelector } from "@/store/hooks";
-import { selectShowBanner, setShowBanner } from "@/store/uiSlice";
+import { useAppDispatch } from '@/helpers/store'
+import useCurrency from '@/hooks/useCurrency'
+import useWindowSize from '@/hooks/useWindowSize'
+import { useAppSelector } from '@/store/hooks'
+import { selectShowBanner, setShowBanner } from '@/store/uiSlice'
 
 export default function Banner() {
-  const dispatch = useAppDispatch();
-  const shouldShowBanner = useAppSelector(selectShowBanner);
-  const { currency } = useCurrency();
-  const { t } = useTranslation("banner");
-  const { width } = useWindowSize();
-  const isMobile = width < 420; // Blaze it
+  const dispatch = useAppDispatch()
+  const shouldShowBanner = useAppSelector(selectShowBanner)
+  const { currency } = useCurrency()
+  const { t } = useTranslation('banner')
+  const {
+    windowSize: { width }
+  } = useWindowSize()
+  const isMobile = width < 420 // Blaze it
 
-  if (!shouldShowBanner) return null;
+  if (!shouldShowBanner) return null
 
   return (
     <div
@@ -57,7 +59,7 @@ export default function Banner() {
             <circle cx={1} cy={1} r={1} />
           </svg>
           <p className="text-sm md:text-lg leading-6 text-gray-900 font-semibold uppercase">
-            {t("description")}
+            {t('description')}
           </p>
 
           <div
@@ -97,5 +99,5 @@ export default function Banner() {
         <XMarkIcon className="sm:w-7 w-6 text-gray-900" aria-hidden="true" />
       </button>
     </div>
-  );
+  )
 }
