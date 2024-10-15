@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import Link from 'next/link'
-import { useTranslation } from 'next-i18next'
+import {useTranslation} from 'next-i18next'
 import React from 'react'
-import { BsChevronDown } from 'react-icons/bs'
+import {BsChevronDown} from 'react-icons/bs' // eslint-disable-next-line react/prop-types
 
 // eslint-disable-next-line react/prop-types
 const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
@@ -13,11 +13,12 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
     { id: 2, name: t('about'), url: '/about' },
     { id: 3, name: t('category'), subMenu: true },
     { id: 4, name: t('contact'), url: '/contact' }
-    // { id: 4, name: t('blog'), url: '/blog' }
+    /*{ id: 5, name: t('blog'), url: '/blogs' }*/
   ]
 
   return (
-    <ul className="
+    <ul
+      className="
     hidden 
     md:flex 
     items-center 
@@ -25,7 +26,8 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
     gap-6 
     mt-1
     font-semibold
-    text-[18px]">
+    text-[18px]"
+    >
       {navItems.map((item) => {
         return (
           <React.Fragment key={item.id}>
@@ -51,7 +53,8 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                 <BsChevronDown size={14} />
 
                 {showCatMenu && (
-                  <ul className="
+                  <ul
+                    className="
                   bg-offWhite 
                   flex
                   flex-col
@@ -66,15 +69,18 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                   py-1.5
                   px-2
                   text-darkBlack
-                  shadow-lg">
-                    {categories && categories?.map(({ attributes: c, id }) => {
-                      return (
-                        <Link
-                          key={id}
-                          href={`/category/${c.slug}`}
-                          onClick={() => setShowCatMenu(false)}
-                        >
-                          <li className="
+                  shadow-lg"
+                  >
+                    {categories &&
+                      categories?.map(({ attributes: c, id }) => {
+                        return (
+                          <Link
+                            key={id}
+                            href={`/category/${c.slug}`}
+                            onClick={() => setShowCatMenu(false)}
+                          >
+                            <li
+                              className="
                           flex 
                           justify-between
                           items-center
@@ -84,15 +90,16 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                           duration-300 
                           hover:bg-darkBlack/[0.05]
                           shadow-sm
-                          rounded-sm">
-                            {c.name}
-                            <span className="opacity-50 text-sm">
-                              {`(${c.products.data.length})`}
-                            </span>
-                          </li>
-                        </Link>
-                      )
-                    })}
+                          rounded-sm"
+                            >
+                              {c.name}
+                              <span className="opacity-50 text-sm">
+                                {`(${c.products.data.length})`}
+                              </span>
+                            </li>
+                          </Link>
+                        )
+                      })}
                   </ul>
                 )}
               </li>

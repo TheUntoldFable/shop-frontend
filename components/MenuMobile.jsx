@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import Link from 'next/link'
-import { useTranslation } from 'next-i18next'
+import {useTranslation} from 'next-i18next'
 import React from 'react'
-import { BsChevronDown } from 'react-icons/bs'
+import {BsChevronDown} from 'react-icons/bs'
 
 const MenuMobile = ({
   showCatMenu,
@@ -17,6 +17,7 @@ const MenuMobile = ({
     { id: 2, name: t('about'), url: '/about' },
     { id: 3, name: t('category'), subMenu: true },
     { id: 4, name: t('contact'), url: '/contact' }
+    /*{ id: 5, name: t('blog'), url: '/blogs' }*/
   ]
 
   return (

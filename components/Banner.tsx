@@ -96,7 +96,7 @@ export default function Banner({ ...props }) {
       <button
         onClick={() => dispatch(setShowBanner(false))}
         type="button"
-        className="-m-3 p-3 bg-transparent focus-visible:outline-offset-[-4px]"
+        className="-m-3 p-3 focus-visible:outline-offset-[-4px] bg-transparent"
       >
         <XMarkIcon className="sm:w-7 w-6 text-gray-900" aria-hidden="true" />
       </button>
