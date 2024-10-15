@@ -1,6 +1,7 @@
 import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { MotionProps, motion } from 'framer-motion'
+import type { MotionProps } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { IoMdHeartEmpty } from 'react-icons/io'
 

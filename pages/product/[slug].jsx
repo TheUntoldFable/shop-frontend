@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 import Markdown from 'react-markdown'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 
 import Container from '@/components/Container'
 import Exclaimer from '@/components/Exclaimer'
@@ -17,17 +17,18 @@ import Wrapper from '@/components/Wrapper'
 import { useAppDispatch } from '@/helpers/store'
 import { addToCart } from '@/store/cartSlice'
 import { useAppSelector } from '@/store/hooks'
-import { selectIsWishlisted , addToWishlist } from '@/store/wishlistSlice'
+import { addToWishlist, selectIsWishlisted } from '@/store/wishlistSlice'
 import { fetchDataFromApi } from '@/utils/api'
 import { getDiscountedPricePercentage } from '@/utils/helper'
 
 const ProductDetails = ({ product, products }) => {
   const { t } = useTranslation([ 'product_details', 'buttons', 'common' ])
   const dispatch = useAppDispatch()
-  const { productSlider, outOfStock, subtitle } =
-    product.data[0].attributes
+  const { productSlider, outOfStock, subtitle } = product.data[0].attributes
 
-  const isAccessory = !subtitle.toLowerCase().includes('hoodie') && !subtitle.toLowerCase().includes('t-shirt')
+  const isAccessory =
+    !subtitle.toLowerCase().includes('hoodie') &&
+    !subtitle.toLowerCase().includes('t-shirt')
 
   const [ selectedSize, setSelectedSize ] = useState(
     isAccessory ? 'M' : undefined
@@ -44,7 +45,9 @@ const ProductDetails = ({ product, products }) => {
 
   const description = product?.data?.[0]?.attributes.description
 
-  const discount = Number(getDiscountedPricePercentage(p.original_price, p.price))
+  const discount = Number(
+    getDiscountedPricePercentage(p?.original_price, p.price)
+  )
 
   const notify = (buttonName) => {
     toast.success(

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BsChevronDown } from 'react-icons/bs'
@@ -11,12 +12,14 @@ const MenuMobile = ({
   categories
 }) => {
   const { t } = useTranslation('nav')
+  const { locale } = useRouter()
 
   const navItems = [
-    { id: 1, name: t('home'), url: '/' },
-    { id: 2, name: t('about'), url: '/about' },
+    { id: 1, name: t('home'), url: `/${locale}` },
+    { id: 2, name: t('about'), url: `${locale}/about` },
     { id: 3, name: t('category'), subMenu: true },
-    { id: 4, name: t('contact'), url: '/contact' }
+    { id: 4, name: t('contact'), url: `${locale}/contact` },
+    { id: 5, name: t('blog'), url: `${locale}/blogs` }
   ]
 
   return (

@@ -1,18 +1,15 @@
-import {
-  useScroll,
-  useMotionValueEvent,
-  motion,
-  Variant
-} from 'framer-motion'
+import type { Variant } from 'framer-motion'
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { BiMenuAltRight } from 'react-icons/bi'
 import { VscChromeClose } from 'react-icons/vsc'
 import { useSelector } from 'react-redux'
 
-import { RootState, useAppDispatch } from '@/helpers/store'
+import type { RootState } from '@/helpers/store'
+import { useAppDispatch } from '@/helpers/store'
 import useWindowSize from '@/hooks/useWindowSize'
 import { useAppSelector } from '@/store/hooks'
 import { setShowBanner } from '@/store/uiSlice'
@@ -49,7 +46,7 @@ const Navigation = () => {
   useMotionValueEvent(scrollY, 'change', (current) => {
     const previous = scrollY.getPrevious()
 
-    if ( current > previous && current > 35 && !isTablet && !isMobile) {
+    if (current > previous && current > 35 && !isTablet && !isMobile) {
       setHidden(true)
     } else {
       setHidden(false)
@@ -57,7 +54,7 @@ const Navigation = () => {
   })
 
   useEffect(() => {
-    fetchCategories()
+    fetchCategories().then()
   }, [ locale ])
 
   useEffect(() => {
@@ -114,7 +111,6 @@ const Navigation = () => {
         duration-300
         `}
       >
-
         <motion.div
           animate={hidden ? 'hidden' : 'visible'}
           variants={variants.upper}
@@ -140,14 +136,6 @@ const Navigation = () => {
               <LanguageSwitcher key="main" isHeader />
             </div>
 
-            <Image
-              alt="image"
-              width={600}
-              height={600}
-              className="md:w-56 w-20"
-              src="/troyka_white.png"
-            />
-
             {mobileMenu && (
               <MenuMobile
                 showCatMenu={showCatMenu}
@@ -169,17 +157,17 @@ const Navigation = () => {
 
               {/* Mobile icon start */}
               <div
-                className="w-8 md:w-12 
-              h-8 md:h-12 
-              rounded-full 
-              flex 
-              md:hidden 
-              justify-center 
-              items-center 
-              hover:bg-darkBlack[0.05] 
-              transition 
-              ease-in-out 
-              duration-300  
+                className="w-8 md:w-12
+              h-8 md:h-12
+              rounded-full
+              flex
+              md:hidden
+              justify-center
+              items-center
+              hover:bg-darkBlack[0.05]
+              transition
+              ease-in-out
+              duration-300
               cursor-pointer relative -mr-2"
               >
                 {mobileMenu ? (
@@ -201,36 +189,39 @@ const Navigation = () => {
           </motion.div>
         </motion.div>
         <div className="w-full flex flex-1 md:-mt-1 flex-row justify-between bg-darkBlack px-6">
-          {!isMobile && !isTablet && <><motion.div
-            animate={hidden ? 'hidden' : 'visible'}
-            variants={variants.lowerSides}
-            transition={{ duration: 0.35, ease: 'anticipate' }}
-            className="flex gap-6 justify-between items-center"
-          >
-            <Link href="/">
-              <Image
-                width={200}
-                height={200}
-                className="w-6"
-                alt="image"
-                src="/logo-white.png"
+          {!isMobile && !isTablet && (
+            <>
+              <motion.div
+                animate={hidden ? 'hidden' : 'visible'}
+                variants={variants.lowerSides}
+                transition={{ duration: 0.35, ease: 'anticipate' }}
+                className="flex gap-6 justify-between items-center"
+              >
+                <Link href="/">
+                  <Image
+                    width={200}
+                    height={200}
+                    className="w-6"
+                    alt="image"
+                    src="/logo-white.png"
+                  />
+                </Link>
+                <Spacer />
+              </motion.div>
+              <Menu
+                showCatMenu={showCatMenu}
+                setShowCatMenu={setShowCatMenu}
+                categories={categories}
               />
-            </Link>
-            <Spacer/>
-          </motion.div>
-          <Menu
-            showCatMenu={showCatMenu}
-            setShowCatMenu={setShowCatMenu}
-            categories={categories}
-          />
-          <Additional
-            animate={hidden ? 'hidden' : 'visible'}
-            variants={variants.lowerSides}
-            transition={{ duration: 0.35, ease: 'anticipate' }}
-            cartItems={cartItems}
-            wishlistItems={wishlistItems}
-          />
-          </>}
+              <Additional
+                animate={hidden ? 'hidden' : 'visible'}
+                variants={variants.lowerSides}
+                transition={{ duration: 0.35, ease: 'anticipate' }}
+                cartItems={cartItems}
+                wishlistItems={wishlistItems}
+              />
+            </>
+          )}
         </div>
       </motion.header>
     </div>

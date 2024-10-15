@@ -1,18 +1,21 @@
+import type { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useEffect } from 'react'
 
-import Container from '@/components/Container'
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 import HomePage from '@/components/screens/HomePage'
 import { useAppDispatch } from '@/helpers/store'
 import { getUser } from '@/store/contexts/userContext'
+import { revertAll } from '@/store/rootReducer'
 import { setUserInfo } from '@/store/userSlice'
 import { fetchDataFromApi } from '@/utils/api'
 
 import 'react-toastify/dist/ReactToastify.css'
 
 // eslint-disable-next-line react/prop-types
-export default function Home({ shirts, hoodies, allProducts, userData }) {
+export default function Home({ shirts, productsNoShirt, userData }) {
   const dispatch = useAppDispatch()
   const { locale } = useRouter()
 
@@ -22,17 +25,23 @@ export default function Home({ shirts, hoodies, allProducts, userData }) {
     dispatch(setUserInfo(userData))
   }, [])
 
+  useEffect(() => {
+    dispatch(revertAll())
+  }, [ locale ])
+
   return (
     <main>
-      <Container className='md:mt-56 sm:mt-28 mt-12'>
-        <HomePage hoodies={hoodies} shirts={shirts} allProducts={allProducts} />
-      </Container>
+      <Header />
+      <HomePage shirts={shirts} productsNoShirt={productsNoShirt} />
+      <Footer />
     </main>
   )
 }
 
-export async function getStaticProps(ctx) {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const { locale } = ctx
+
+  if(!locale) return { props: {} }
 
   // const products = await fetchDataFromApi(
   //   `/api/products?populate=*&sort=subtitle:desc&locale=${locale}`
@@ -42,21 +51,16 @@ export async function getStaticProps(ctx) {
     `/api/products?populate=*&filters[subtitle][$contains]=t-shirt&sort=updatedAt:asc&locale=${locale}`
   )
 
-  const hoodies = await fetchDataFromApi(
-    `/api/products?populate=*&filters[subtitle][$contains]=hoodie&sort=updatedAt:asc&locale=${locale}`
-  )
-
-  const allProducts = await fetchDataFromApi(
-    `/api/products?populate=*&sort=price:asc&locale=${locale}`
+  const productsNoShirt = await fetchDataFromApi(
+    `/api/products?populate=*&filters[subtitle][$notContains]=t-shirt&sort=price:asc&locale=${locale}`
   )
 
   const userData = getUser(ctx)
 
   return {
     props: {
-      hoodies,
       shirts,
-      allProducts,
+      productsNoShirt,
       userData,
       ...(await serverSideTranslations(locale, [
         'common',

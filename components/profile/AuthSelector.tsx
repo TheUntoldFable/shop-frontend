@@ -6,10 +6,9 @@ import * as Yup from 'yup'
 
 import login from '@/pages/api/auth/login'
 
-
 interface Props {
-  choice?: string
-  setChoice: () => void
+  choice?: string;
+  setChoice: () => void;
 }
 
 function AuthSelector({ setChoice }: Props) {
@@ -49,16 +48,19 @@ function AuthSelector({ setChoice }: Props) {
   //=========================== Handler Functions END ============================//
 
   return (
-    <div className="
-    bg-gradient-to-r from-[#0ba360] to-[#3cba92] 
+    <div
+      className="
+    bg-gradient-to-r from-[#0ba360] to-[#3cba92]
     flex-1
-    flex-column 
-    space-y-5 
-    md:max-w-[450px] 
-    mx-auto 
-    p-[40px] 
-    shadow-md 
-    rounded-sm">
+    flex-column
+    space-y-5
+    md:max-w-[450px]
+    mx-auto
+    mt-12
+    p-10
+    shadow-md
+    rounded-sm"
+    >
       <h2 className="font-semibold text-4xl text-center text-[#F8F1F1]">
         Вход
       </h2>

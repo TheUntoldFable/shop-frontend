@@ -1,5 +1,4 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 
 import { useAppDispatch } from '@/helpers/store'
@@ -8,31 +7,33 @@ import useWindowSize from '@/hooks/useWindowSize'
 import { useAppSelector } from '@/store/hooks'
 import { selectShowBanner, setShowBanner } from '@/store/uiSlice'
 
-export default function Banner({ ...props }) {
+export default function Banner() {
   const dispatch = useAppDispatch()
   const shouldShowBanner = useAppSelector(selectShowBanner)
   const { currency } = useCurrency()
   const { t } = useTranslation('banner')
-  const { isMobile } = useWindowSize()
+  const {
+    windowSize: { width }
+  } = useWindowSize()
+  const isMobile = width < 420 // Blaze it
 
   if (!shouldShowBanner) return null
 
   return (
-    <motion.div {...props} className="
+    <div
+      className="
+    relative 
     bg-gray-50 
-    w-full
+    isolate 
     flex 
-    flex-1
     justify-between 
     items-center 
     sm:flex-row 
     gap-2 
-    z-12
     overflow-hidden 
     p-2 
-    fixed 
-    bottom-0
-    sm:px-3.5">
+    sm:px-3.5"
+    >
       {!isMobile && <div className="w-6 h-6 md:w-12 md:h-12" />}
       <div className="flex flex-wrap gap-x-4 gap-y-2">
         <div className="flex justify-center items-center sm:flex-row gap-2">
@@ -61,7 +62,8 @@ export default function Banner({ ...props }) {
             {t('description')}
           </p>
 
-          <div className="
+          <div
+            className="
           bg-gray-900 
           uppercase 
           cursor-pointer 
@@ -83,7 +85,8 @@ export default function Banner({ ...props }) {
           focus-visible:outline-offset-2 
           focus-visible:outline-gray-900
           shadow-sm 
-          ">
+          "
+          >
             50 {currency}
           </div>
         </div>
@@ -91,10 +94,10 @@ export default function Banner({ ...props }) {
       <button
         onClick={() => dispatch(setShowBanner(false))}
         type="button"
-        className="-m-3 p-3 focus-visible:outline-offset-[-4px]"
+        className="-m-3 p-3 bg-transparent focus-visible:outline-offset-[-4px]"
       >
         <XMarkIcon className="sm:w-7 w-6 text-gray-900" aria-hidden="true" />
       </button>
-    </motion.div>
+    </div>
   )
 }

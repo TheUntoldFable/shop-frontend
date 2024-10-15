@@ -1,0 +1,5 @@
+{
+    "empty": "Vuoto",
+    "empty_description": "Siamo spiacenti, la pagina del blog è vuota, controlla più tardi!",
+    "minutes_read": "{{count}} minuti letti"
+}

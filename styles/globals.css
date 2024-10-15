@@ -2,8 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "Euclid";
+    src: url('../assets/fonts/Euclid.ttf');
+}
+
+@font-face {
+    font-family: "Euclid_Bold";
+    src: url('../assets/fonts/Euclid_Bold.ttf');
+}
+
+@font-face {
+    font-family: "Euclid_SemiBold";
+    src: url('../assets/fonts/Euclid_SemiBold.ttf');
+}
+
+@font-face {
+    font-family: "Hearthless";
+    src: url('../assets/fonts/Heartless.ttf');
+}
+
+@font-face {
+    font-family: "Boffin";
+    src: url('../assets/fonts/Boffin.otf');
+}
+
+@font-face {
+    font-family: "Boffin-B";
+    src: url('../assets/fonts/BoffinBold.otf');
+}
+
+@font-face {
+    font-family: "Boffin-M";
+    src: url('../assets/fonts/BoffinCondensed.otf');
+}
+
+@font-face {
+    font-family: "SPArielBG";
+    src: url('../assets/fonts/SPArielBG.otf');
+}
+
 :root {
-    
+    font-family: "Euclid", sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
@@ -16,6 +56,11 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
 
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
 body {
@@ -35,11 +80,12 @@ h2 {
 }
 
 h3 {
+    line-height: normal;
     font-size: 24px;
 }
 
 p {
-    font-size: 14px;
+    font-size: 16px;
     color: #EEEEEE
 }
 
@@ -49,17 +95,40 @@ button {
 }
 
 strong {
-    font-weight: 900;
+    font-family: "Euclid_Bold", serif;
 }
 
 .about-us {
-    font-size: 36px;
+    font-size: 42px;
+}
+
+.prose {
+    word-break: break-word;
+}
+
+.prose > h1 {
+    font-family: "Euclid_SemiBold", sans-serif;
+    color: #EEEEEE
+}
+
+.prose > h2 {
+    font-family: "Euclid_SemiBold", sans-serif;
+    color: #EEEEEE
+}
+
+.prose > h3 {
+    font-family: "Euclid_SemiBold", sans-serif;
+    color: #EEEEEE
 }
 
 .prose > p {
     font-family: "Euclid_SemiBold", sans-serif;
-    font-weight: 700;
     font-size: 20px;
+
+    img {
+        object-fit: contain;
+        max-height: 400px;
+    }
 }
 
 textarea {
@@ -188,7 +257,6 @@ input {
 /* PRODUCT DETAILS CAROUSEL STYLING CUSTOMIZATION END */
 
 .markdown ul {
-    margin: 0;
     padding: 0;
     list-style-type: disc;
     margin: 20px 0;

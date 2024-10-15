@@ -7,7 +7,7 @@ import { revertAll } from './rootReducer'
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cartItems: Array<any[]>
+  cartItems: Array<any[]>;
 }
 
 const initialState: Props = { cartItems: [] }
@@ -20,7 +20,7 @@ export const cartSlice = createSlice({
       .addCase(handlePayment.fulfilled, () => {
         window.location.replace('/success')
       })
-    // You can chain calls, or have separate `builder.addCase()` lines each time
+      // You can chain calls, or have separate `builder.addCase()` lines each time
       .addCase(handlePayment.rejected, () => {
         window.location.replace('/failed')
       })
@@ -29,9 +29,9 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const item:any = state.cartItems.find(
+      const item: any = state.cartItems.find(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (p:any) =>
+        (p: any) =>
           p.id === action.payload.id &&
           p.selectedSize === action.payload.selectedSize
       )
@@ -45,7 +45,7 @@ export const cartSlice = createSlice({
       }
     },
     updateCart: (state, action) => {
-      state.cartItems = state.cartItems.map((p:any) => {
+      state.cartItems = state.cartItems.map((p: any) => {
         if (p.id === action.payload.id) {
           if (action.payload.key === 'quantity') {
             p.attributes.price = p.oneQuantityPrice * action.payload.val
@@ -57,7 +57,7 @@ export const cartSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       const selectedItem: any = state.cartItems.find(
-        (p:any) =>
+        (p: any) =>
           p.id === action.payload.id &&
           p.selectedSize === action.payload.selectedSize
       )

@@ -25,7 +25,7 @@ const HeroBanner = () => {
       style={!isMobile ? slideRight(cInView) : undefined}
       ref={carouselRef}
       className={
-        'text-white text-[20px] flex sm:h-[600px] h-[400px] mx-auto mb-12'
+        'text-white text-[20px] flex sm:h-[600px] h-[400px] mx-auto my-12'
       }
     >
       <Carousel

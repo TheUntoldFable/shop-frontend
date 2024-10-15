@@ -7,7 +7,6 @@ import Container from '@/components/Container'
 import Wrapper from '@/components/Wrapper'
 import { about } from '@/utils/markdowns'
 
-
 function About() {
   const { locale } = useRouter()
   const { t } = useTranslation('about')

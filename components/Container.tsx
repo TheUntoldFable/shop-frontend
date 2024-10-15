@@ -1,20 +1,16 @@
-
-import Banner from './Banner'
 import Footer from './Footer'
-import Navigation from './navigation/Navigation'
+import Header from './Header'
 
 interface ContainerProps {
-  className?: string
-  children: JSX.Element | JSX.Element[]
+  className?: string;
+  children: JSX.Element | JSX.Element[];
 }
 
-export default function Container({ className,children }: ContainerProps) {
+export default function Container({ children }: ContainerProps) {
   return (
-    <div>
-      <Navigation />
-      <div className={`${className ?? 'md:mt-44 mt-12'}`}>{children}</div>
-      <Banner />
-
+    <div className="flex flex-1 flex-col justify-between min-h-screen">
+      <Header />
+      {children}
       <Footer />
     </div>
   )

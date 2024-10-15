@@ -1,7 +1,6 @@
 import { config } from '@fortawesome/fontawesome-svg-core'
 import { ThemeProvider } from '@material-tailwind/react'
-import { AppProps } from 'next/app'
-import localFont from 'next/font/local'
+import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
 import { Provider } from 'react-redux'
@@ -10,42 +9,23 @@ import { PersistGate } from 'redux-persist/lib/integration/react'
 import '@/styles/globals.css'
 
 import Layout from '@/components/Layout'
-import { persistor , rootReducer } from '@/store/store'
-
+import { UIProvider } from '@/store/contexts/ui'
+import { persistor, rootReducer } from '@/store/store'
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
 config.autoAddCss = false
-
-
-const Euclid = localFont({
-  src: [
-    {
-      path: './../public/fonts/Euclid.ttf',
-      style: 'normal',
-      weight: '500'
-    },
-    {
-      path: './../public/fonts/Euclid_SemiBold.ttf',
-      style: 'semibold',
-      weight: '700'
-    },
-    {
-      path: './../public/fonts/Euclid_Bold.ttf',
-      style: 'bold',
-      weight: '900'
-    }
-  ]
-})
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
         <title>Troyka Wear</title>
-        <meta name="p:domain_verify" content="f7520b69448e23b11a83c47c55fce461"/>
-        <meta name="description" content="Omne Trium Perfectum" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Streetwear online shop cr" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
         <link rel="icon" href="favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -57,9 +37,9 @@ function App({ Component, pageProps }: AppProps) {
       <ThemeProvider>
         <Provider store={rootReducer}>
           <PersistGate persistor={persistor}>
-            <main className={Euclid.className}>
+            <UIProvider>
               <Layout component={Component} pageProps={pageProps} />
-            </main>
+            </UIProvider>
           </PersistGate>
         </Provider>
       </ThemeProvider>

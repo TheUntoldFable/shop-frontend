@@ -30,12 +30,11 @@ function ProfilePage(props) {
 
   const handleLogout = useCallback(async () => {
     await logOut(userData.jwt)
-  },[ userData.jwt ])
-
+  }, [ userData.jwt ])
 
   if (userData.jwt)
     return (
-      <Container className='md:mt-52 mt-24 mb-12'>
+      <Container>
         <div className="min-h-[650px] flex">
           {openModal && (
             <Modal logOut={handleLogout} close={() => setOpenModal(false)} />
@@ -81,7 +80,7 @@ function ProfilePage(props) {
     )
 
   return (
-    <Container className='mt-24 -mb-24 sm:mt-56 sm:-mb-24 flex-1 justify-between'>
+    <Container>
       <div className="min-h-[650px] flex flex-1">
         <Wrapper>
           <>

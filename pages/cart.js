@@ -1,12 +1,10 @@
-/* eslint-disable react/prop-types */ 
+/* eslint-disable react/prop-types */
 import {
-  faCartShopping,
   faCreditCard,
   faTruckArrowRight
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -17,6 +15,7 @@ import CartItem from '@/components/CartItem'
 import Container from '@/components/Container'
 import Divider from '@/components/Divider'
 import Exclaimer from '@/components/Exclaimer'
+import PageEmpty from '@/components/PageEmpty'
 import AddressForm from '@/components/profile/AddressForm'
 import BillingAddressForm from '@/components/profile/BillingAddressForm'
 import CredentialsForm from '@/components/profile/CredentialsForm'
@@ -56,14 +55,14 @@ const Cart = (props) => {
   }, [ cartItems ])
 
   const paymentDisabled = useMemo(() => {
-    if (!credentialsInfo || !addressInfo ) return true
-		
+    if (!credentialsInfo || !addressInfo) return true
+
     if (deliveryOption === 'home') {
       if (!addressInfo) return true
       return false
     }
 
-    if(deliveryOption === 'office') {
+    if (deliveryOption === 'office') {
       if (!officeAddressInfo) return true
       return false
     }
@@ -83,7 +82,6 @@ const Cart = (props) => {
   }
 
   const makePayment = async (event) => {
-    
     const paymentData = {
       paymentMethod: event.target.name,
       products: cartItems,
@@ -99,26 +97,26 @@ const Cart = (props) => {
 
   return (
     <Container>
-      <div className="w-full py-12">
+      <div className="w-full md:py-20">
         <Wrapper>
           {cartItems && cartItems.length > 0 && (
             <>
               {/* HEADING AND PARAGRAPH START */}
-              <div className="text-center max-w-[800px] mx-auto">
-                <div className="text-offWhite text-[28px] md:text-[34px] font-semibold leading-tight">
+              <div className="text-center max-w-[800px] mx-auto mt-8 md:mt-0">
+                <div className="text-offWhite text-[28px] md:text-[34px] mb-5 font-semibold leading-tight">
                   {t('your_cart')}
                 </div>
               </div>
               {/* HEADING AND PARAGRAPH END */}
 
               {/* CART CONTENT START */}
-              <div className="flex flex-col lg:flex-row">
+              <div className="flex flex-col lg:flex-row gap-12 py-10">
                 {/* CART ITEMS START */}
-                <div className="flex-1">
+                <div className="flex-[2]">
                   <div className="text-offWhite text-lg font-bold">
                     {t('products', { ns: 'cart' })}
                   </div>
-                  <div className="mb-4">
+                  <div className="mb-10">
                     {cartItems.map((item) => (
                       <CartItem key={item.id} data={item} />
                     ))}
@@ -184,8 +182,6 @@ const Cart = (props) => {
                       </div>
                     </div>
                     <Divider />
-                    
-                    <Exclaimer />
                     <div className="text-offWhite text-sm md:text-md py-5 mt-5">
                       <div className=" text-offWhite text-xl rounded-md flex flex-row items-center gap-2 mb-6">
                         <Image
@@ -198,40 +194,52 @@ const Cart = (props) => {
                       </div>
                       {t('shipping_description')}
                     </div>
-                    {/* BUTTON START */}
-                    <div className="flex space-x-3 flex-row justify-between">
-                      <button
-                        name="arrive"
-                        className={`transition ease-in-out w-full py-4 rounded-md ${
-                          paymentDisabled
-                            ? 'disabled pointer-events-none'
-                            : 'bg-gradient-to-r from-[#0ba360] to-[#3cba92]'
-                        } text-offWhite text-md font-medium active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center`}
-                        onClick={(e) => {
-                          if (paymentDisabled) setShowError(true)
-                          else makePayment(e)
-                        }}
-                      >
-                        {t('pay_arrival', { ns: 'buttons' })}
-                        <FontAwesomeIcon icon={faTruckArrowRight} />
-                      </button>
-                      <button
-                        name="card"
-                        className={`transition ease-in-out w-full py-4 rounded-md ${
-                          paymentDisabled
-                            ? 'disabled pointer-events-none'
-                            : 'bg-gradient-to-r from-[#0ba360] to-[#3cba92]'
-                        } text-offWhite text-md font-medium active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center`}
-                        onClick={(e) => {
-                          if (paymentDisabled) setShowError(true)
-                          else makePayment(e)
-                        }}
-                      >
-                        {t('pay_card', { ns: 'buttons' })}
-                        <FontAwesomeIcon icon={faCreditCard} />
-                      </button>
-                    </div>
                   </div>
+
+                  {/* BUTTON START */}
+                  <div className="flex space-x-3 flex-row justify-between">
+                    <button
+                      name="arrive"
+                      className={`transition ease-in-out w-full py-4 rounded-md ${
+                        paymentDisabled
+                          ? 'disabled pointer-events-none'
+                          : 'bg-gradient-to-r from-[#0ba360] to-[#3cba92]'
+                      } text-offWhite 
+                      text-md 
+                      font-medium 
+                      active:scale-95 
+                      mb-3 
+                      hover:opacity-75 
+                      flex 
+                      items-center 
+                      gap-2 
+                      justify-center
+                      `}
+                      onClick={(e) => {
+                        if (paymentDisabled) setShowError(true)
+                        else makePayment(e)
+                      }}
+                    >
+                      {t('pay_arrival', { ns: 'buttons' })}
+                      <FontAwesomeIcon icon={faTruckArrowRight} />
+                    </button>
+                    <button
+                      name="card"
+                      className={`transition ease-in-out w-full py-4 rounded-md ${
+                        paymentDisabled
+                          ? 'disabled pointer-events-none'
+                          : 'bg-gradient-to-r from-[#0ba360] to-[#3cba92]'
+                      } text-offWhite text-md font-medium active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center`}
+                      onClick={(e) => {
+                        if (paymentDisabled) setShowError(true)
+                        else makePayment(e)
+                      }}
+                    >
+                      {t('pay_card', { ns: 'buttons' })}
+                      <FontAwesomeIcon icon={faCreditCard} />
+                    </button>
+                  </div>
+                  <Exclaimer />
                   {showError && (
                     <div className="text-errorYellow mt-1">
                       {t('address_error', { ns: 'forms' })}
@@ -247,36 +255,12 @@ const Cart = (props) => {
 
           {/* This is empty screen */}
           {cartItems.length < 1 && (
-            <div className="flex-1 flex flex-col items-center">
-              <FontAwesomeIcon
-                color="#EEEEEE"
-                icon={faCartShopping}
-                className="w-20 md:w-40 flex flex-1 pb-4"
+            <div className="flex-[2] flex flex-col items-center pb-[50px]">
+              <PageEmpty
+                icon="cart"
+                title={t('empty', { ns: 'cart' })}
+                description={t('empty_description', { ns: 'cart' })}
               />
-              <span className="text-offWhite text-xl font-bold">
-                {t('empty')}
-              </span>
-              <span className="text-offWhite text-center max-w-md mt-4">
-                {t('empty_description')}
-              </span>
-              <Link
-                href="/"
-                className="
-                py-4
-                px-8
-                rounded-full
-              bg-gradient-to-r from-[#0ba360] to-[#3cba92]
-              text-offWhite
-                font-semibold
-                transition
-                ease-in-out
-                active:scale-95
-                mb-3
-                hover:opacity-75
-                mt-8"
-              >
-                {t('continue', { ns: 'buttons' })}
-              </Link>
             </div>
           )}
         </Wrapper>

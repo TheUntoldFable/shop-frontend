@@ -1,5 +1,5 @@
 import Router from 'next/router'
-import { setCookie, destroyCookie } from 'nookies'
+import { destroyCookie, setCookie } from 'nookies'
 
 export const setToken = (token) => {
   if (!token) return

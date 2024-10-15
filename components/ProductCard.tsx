@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Variants, motion, useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,6 +10,7 @@ import useCurrency from '@/hooks/useCurrency'
 import useWindowSize from '@/hooks/useWindowSize'
 import { fadeIn } from '@/utils/animations'
 import { getDiscountedPricePercentage } from '@/utils/helper'
+
 const ProductCard = ({
   data: { attributes: p },
   isCarouselCard,
@@ -24,8 +25,8 @@ const ProductCard = ({
   const discount = Number(
     getDiscountedPricePercentage(p.original_price, p.price)
   )
-  
-  const productRef = useRef(null) 
+
+  const productRef = useRef(null)
 
   const productInView = useInView(productRef, { once: true })
 
@@ -54,10 +55,10 @@ const ProductCard = ({
         {disabled && (
           <div
             className="
-       absolute 
-       z-10 
+       absolute
+       z-10
        inset-0
-       flex 
+       flex
        flex-1
        flex-col
        items-center

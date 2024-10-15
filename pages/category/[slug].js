@@ -10,9 +10,6 @@ import ProductCard from '@/components/ProductCard'
 import Wrapper from '@/components/Wrapper'
 import { fetchDataFromApi } from '@/utils/api'
 
-
-
-
 const Category = ({ category, products, slug }) => {
   const [ pageIndex, setPageIndex ] = useState(1)
   const { query, locale } = useRouter()
@@ -101,7 +98,12 @@ export async function getServerSideProps({ params: { slug }, locale }) {
       category,
       products,
       slug,
-      ...(await serverSideTranslations(locale, [ 'footer', 'nav', 'buttons','banner' ]))
+      ...(await serverSideTranslations(locale, [
+        'footer',
+        'nav',
+        'buttons',
+        'banner'
+      ]))
     }
   }
 }

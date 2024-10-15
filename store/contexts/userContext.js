@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect } from "react";
 import nookies from "nookies";
+import { createContext, useContext, useEffect } from "react";
 
 const User = createContext({ user: null, loading: false });
 
@@ -24,10 +24,10 @@ export const getUser = (ctx) => {
 
   if (cookies.jwt) {
     user = JSON.parse(cookies.user);
-    return {...user, jwt: cookies.jwt}
+    return { ...user, jwt: cookies.jwt };
   }
 
-  return {user, jwt: null }
+  return { user, jwt: null };
 };
 
 export const useAuthContext = () => useContext(User);
