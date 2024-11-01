@@ -41,3 +41,5 @@ yarn-error.log*
 /.idea/jsLinters/eslint.xml
 /.idea/dbnavigator.xml
 /.idea/aws.xml
+/.idea/modules.xml
+/.idea/shop-frontend.iml
