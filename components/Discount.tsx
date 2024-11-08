@@ -1,17 +1,17 @@
+import Image from 'next/image'
 import React from 'react'
+
+import saleImage from '@/public/sale.png'
 
 const Discount = () => {
   return (
-    <div className="flex flex-1 items-center justify-center flex-col text-center mx-12 py-12 mb-12 rounded-md">
-      <h1 className="animate-bounce uppercase text-darkBlack font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#0ba360] to-[#3cba92]">
+    <div className="mt-24 flex flex-1 flex-col items-center justify-center rounded-md text-center sm:mt-44">
+      <h1 className="animate-bounce font-bold text-3xl uppercase text-white sm:text-7xl">
         Annual Sale
       </h1>
-      <h2 className="text-[1.5rem] sm:text-md text-darkBlack font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#0ba360] to-[#3cba92]">
-        25% OFF
-      </h2>
-      <h2 className="uppercase text-[1.5rem] sm:text-md text-darkBlack font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#0ba360] to-[#3cba92]">
-        On all products
-      </h2>
+      <div className="-mt-14 max-w-[1080px] sm:-mt-24">
+        <Image src={saleImage} alt="sale" />
+      </div>
     </div>
   )
 }
