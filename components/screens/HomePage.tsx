@@ -38,22 +38,22 @@ export default function HomePage({ hoodies, shirts, allProducts }) {
     <div>
       <ToastContainer />
       <SubscribeDialog />
-      <Discount />
+      {/*<Discount />*/}
       <Wrapper>
         <HeroBanner />
         <div
           style={!isMobile ? slideRight(godsMonstersInView) : undefined}
           ref={godsMonstersRef}
-          className="bg-offWhite relative flex flex-col flex-1 p-6 mb-12 rounded-md gap-6 bg-opacity-90"
+          className="relative mb-12 flex flex-1 flex-col gap-6 rounded-md bg-offWhite bg-opacity-90 p-6"
         >
-          <div className="rounded-md z-1 text-center">
-            <h2 className="text-darkBlack p-4 rounded-md uppercase sm:text-[32px] my-6 text-[24px] font-semibold">
+          <div className="z-1 rounded-md text-center">
+            <h2 className="my-6 rounded-md p-4 font-semibold text-[24px] uppercase text-darkBlack sm:text-[32px]">
               {t('GODS & MONSTERS')}
             </h2>
           </div>
 
           {hoodies && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-2 md:gap-6">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 md:gap-6 lg:grid-cols-3">
               {hoodies?.data?.map((product) => (
                 <ProductCard
                   key={product?.id}
@@ -68,16 +68,16 @@ export default function HomePage({ hoodies, shirts, allProducts }) {
         <div
           style={!isMobile ? slideRight(collectionInView) : undefined}
           ref={collectionRef}
-          className="bg-offWhite relative flex flex-col flex-1 p-6 mb-12 rounded-md gap-6 bg-opacity-90"
+          className="relative mb-12 flex flex-1 flex-col gap-6 rounded-md bg-offWhite bg-opacity-90 p-6"
         >
-          <div className="rounded-md z-1 text-center">
-            <h2 className="text-darkBlack p-4 rounded-md uppercase sm:text-[32px] my-6 text-[24px] font-semibold">
+          <div className="z-1 rounded-md text-center">
+            <h2 className="my-6 rounded-md p-4 font-semibold text-[24px] uppercase text-darkBlack sm:text-[32px]">
               {t('uncensored_collection')}
             </h2>
           </div>
 
           {shirts && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-2 md:gap-6">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 md:gap-6 lg:grid-cols-3">
               {shirts?.data?.map((product) => (
                 <ProductCard
                   key={product?.id}
@@ -89,7 +89,7 @@ export default function HomePage({ hoodies, shirts, allProducts }) {
           )}
         </div>
         {filteredProducts && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-2 my-12 md:gap-6">
+          <div className="my-12 grid grid-cols-1 gap-2 sm:grid-cols-3 md:gap-6 lg:grid-cols-3">
             {filteredProducts.map((product, index) => (
               <ProductCard
                 mIndex={index}
