@@ -1,16 +1,12 @@
-/* eslint-disable react/prop-types */ 
-import {
-  faCartShopping,
-  faCreditCard,
-  faTruckArrowRight
-} from '@fortawesome/free-solid-svg-icons'
+/* eslint-disable react/prop-types */
+import { faCartShopping, faCreditCard, faTruckArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { memo, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 
 import SelectAddress from '@/components/cart/SelectAddress'
 import CartItem from '@/components/CartItem'
@@ -26,12 +22,7 @@ import { useAppDispatch } from '@/helpers/store'
 import { handlePayment } from '@/pages/api/checkout/payments'
 import { getUser } from '@/store/contexts/userContext'
 import { useAppSelector } from '@/store/hooks'
-import {
-  selectBillingAddress,
-  selectOfficeAddress,
-  selectUserAddress,
-  selectUserCredentials
-} from '@/store/userSlice'
+import { selectBillingAddress, selectOfficeAddress, selectUserAddress, selectUserCredentials } from '@/store/userSlice'
 
 const Cart = (props) => {
   const user = props.user.username
@@ -47,6 +38,7 @@ const Cart = (props) => {
   const billingAddressInfo = useAppSelector(selectBillingAddress)
   const { cartItems } = useAppSelector((state) => state?.cart)
   const [ deliveryOption, setDeliveryOption ] = useState('home')
+  const [ isDisabled, setDisabled ] = useState(true)
 
   const deliveryPrice = deliveryOption === 'office' ? 5 : 7.5
   const currency = locale !== 'bg' ? 'BGN' : 'ЛВ'
@@ -55,19 +47,15 @@ const Cart = (props) => {
     return cartItems.reduce((total, val) => total + val?.attributes.price, 0)
   }, [ cartItems ])
 
-  const paymentDisabled = useMemo(() => {
-    if (!credentialsInfo || !addressInfo ) return true
-		
-    if (deliveryOption === 'home') {
-      if (!addressInfo) return true
-      return false
-    }
+  const shouldPreventProceed = () => {
+    if (!credentialsInfo) return true
+    if (deliveryOption === 'home' && !addressInfo) return true
+    return deliveryOption === 'office' && !officeAddressInfo
+  }
 
-    if(deliveryOption === 'office') {
-      if (!officeAddressInfo) return true
-      return false
-    }
-  }, [ deliveryOption, officeAddressInfo, addressInfo, credentialsInfo ])
+  useEffect(() => {
+    setDisabled(shouldPreventProceed())
+  }, [ deliveryOption, addressInfo, officeAddressInfo, credentialsInfo ])
 
   const calculateTotal = () => {
     if (locale === 'bg') {
@@ -83,7 +71,6 @@ const Cart = (props) => {
   }
 
   const makePayment = async (event) => {
-    
     const paymentData = {
       paymentMethod: event.target.name,
       products: cartItems,
@@ -104,8 +91,8 @@ const Cart = (props) => {
           {cartItems && cartItems.length > 0 && (
             <>
               {/* HEADING AND PARAGRAPH START */}
-              <div className="text-center max-w-[800px] mx-auto">
-                <div className="text-offWhite text-[28px] md:text-[34px] font-semibold leading-tight">
+              <div className="mx-auto max-w-[800px] text-center">
+                <div className="font-semibold text-[28px] leading-tight text-offWhite md:text-[34px]">
                   {t('your_cart')}
                 </div>
               </div>
@@ -115,7 +102,7 @@ const Cart = (props) => {
               <div className="flex flex-col lg:flex-row">
                 {/* CART ITEMS START */}
                 <div className="flex-1">
-                  <div className="text-offWhite text-lg font-bold">
+                  <div className="font-bold text-lg text-offWhite">
                     {t('products', { ns: 'cart' })}
                   </div>
                   <div className="mb-4">
@@ -132,7 +119,7 @@ const Cart = (props) => {
                     <div className="flex flex-col gap-6">
                       <CredentialsForm />
                       <BillingAddressForm />
-                      <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
+                      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                         <AddressForm disabled={deliveryOption !== 'home'} />
                         <OfficeAddressForm
                           disabled={deliveryOption !== 'office'}
@@ -145,26 +132,26 @@ const Cart = (props) => {
 
                 {/* SUMMARY START */}
                 <div className="flex-[1]">
-                  <div className="text-offWhite text-lg font-bold">
+                  <div className="font-bold text-lg text-offWhite">
                     {t('summary')}
                   </div>
 
-                  <div className="p-5 my-5 bg-#393646/[0.05] rounded-xl">
+                  <div className="bg-#393646/[0.05] my-5 rounded-xl p-5">
                     <div className="flex justify-between">
-                      <div className="uppercase text-md md:text-lg font-normal text-offWhite">
+                      <div className="text-md font-normal uppercase text-offWhite md:text-lg">
                         {t('subtotal')}
                       </div>
-                      <div className="text-md md:text-lg font-bold text-offWhite">
+                      <div className="text-md font-bold text-offWhite md:text-lg">
                         {subTotal} {currency}
                       </div>
                     </div>
                     <Divider />
                     <div className="flex justify-between">
-                      <div className="uppercase text-md md:text-lg font-normal text-offWhite">
+                      <div className="text-md font-normal uppercase text-offWhite md:text-lg">
                         {t('shipping')}
                       </div>
                       <div
-                        className={`text-md md:text-lg font-bold ${
+                        className={`text-md font-bold md:text-lg ${
                           (locale === 'bg' && subTotal >= 50) ||
                           (locale !== 'bg' && subTotal >= 25)
                             ? 'line-through'
@@ -176,18 +163,18 @@ const Cart = (props) => {
                     </div>
                     <Divider />
                     <div className="flex justify-between">
-                      <div className="uppercase text-md md:text-lg font-bold text-offWhite">
+                      <div className="text-md font-bold uppercase text-offWhite md:text-lg">
                         {t('total')}
                       </div>
-                      <div className="uppercase text-md md:text-lg font-bold text-offWhite">
+                      <div className="text-md font-bold uppercase text-offWhite md:text-lg">
                         {calculateTotal()} {currency}
                       </div>
                     </div>
                     <Divider />
-                    
+
                     <Exclaimer />
-                    <div className="text-offWhite text-sm md:text-md py-5 mt-5">
-                      <div className=" text-offWhite text-xl rounded-md flex flex-row items-center gap-2 mb-6">
+                    <div className="md:text-md mt-5 py-5 text-sm text-offWhite">
+                      <div className=" mb-6 flex flex-row items-center gap-2 rounded-md text-xl text-offWhite">
                         <Image
                           className="w-20"
                           alt="img"
@@ -199,16 +186,17 @@ const Cart = (props) => {
                       {t('shipping_description')}
                     </div>
                     {/* BUTTON START */}
-                    <div className="flex space-x-3 flex-row justify-between">
+                    <div className="flex flex-row justify-between space-x-3">
                       <button
+                        disabled={isDisabled}
                         name="arrive"
-                        className={`transition ease-in-out w-full py-4 rounded-md ${
-                          paymentDisabled
+                        className={`w-full rounded-md py-4 transition ease-in-out ${
+                          isDisabled
                             ? 'disabled pointer-events-none'
                             : 'bg-gradient-to-r from-[#0ba360] to-[#3cba92]'
-                        } text-offWhite text-md font-medium active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center`}
+                        } text-md mb-3 flex items-center justify-center gap-2 font-medium text-offWhite hover:opacity-75 active:scale-95`}
                         onClick={(e) => {
-                          if (paymentDisabled) setShowError(true)
+                          if (isDisabled) setShowError(true)
                           else makePayment(e)
                         }}
                       >
@@ -217,13 +205,14 @@ const Cart = (props) => {
                       </button>
                       <button
                         name="card"
-                        className={`transition ease-in-out w-full py-4 rounded-md ${
-                          paymentDisabled
+                        disabled={isDisabled}
+                        className={`w-full rounded-md py-4 transition ease-in-out ${
+                          isDisabled
                             ? 'disabled pointer-events-none'
                             : 'bg-gradient-to-r from-[#0ba360] to-[#3cba92]'
-                        } text-offWhite text-md font-medium active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center`}
+                        } text-md mb-3 flex items-center justify-center gap-2 font-medium text-offWhite hover:opacity-75 active:scale-95`}
                         onClick={(e) => {
-                          if (paymentDisabled) setShowError(true)
+                          if (isDisabled) setShowError(true)
                           else makePayment(e)
                         }}
                       >
@@ -233,7 +222,7 @@ const Cart = (props) => {
                     </div>
                   </div>
                   {showError && (
-                    <div className="text-errorYellow mt-1">
+                    <div className="mt-1 text-errorYellow">
                       {t('address_error', { ns: 'forms' })}
                     </div>
                   )}
@@ -247,33 +236,33 @@ const Cart = (props) => {
 
           {/* This is empty screen */}
           {cartItems.length < 1 && (
-            <div className="flex-1 flex flex-col items-center">
+            <div className="flex flex-1 flex-col items-center">
               <FontAwesomeIcon
                 color="#EEEEEE"
                 icon={faCartShopping}
-                className="w-20 md:w-40 flex flex-1 pb-4"
+                className="flex w-20 flex-1 pb-4 md:w-40"
               />
-              <span className="text-offWhite text-xl font-bold">
+              <span className="font-bold text-xl text-offWhite">
                 {t('empty')}
               </span>
-              <span className="text-offWhite text-center max-w-md mt-4">
+              <span className="mt-4 max-w-md text-center text-offWhite">
                 {t('empty_description')}
               </span>
               <Link
                 href="/"
                 className="
-                py-4
-                px-8
+                mb-3
+                mt-8
                 rounded-full
               bg-gradient-to-r from-[#0ba360] to-[#3cba92]
-              text-offWhite
+              px-8
+                py-4
                 font-semibold
+                text-offWhite
                 transition
                 ease-in-out
-                active:scale-95
-                mb-3
                 hover:opacity-75
-                mt-8"
+                active:scale-95"
               >
                 {t('continue', { ns: 'buttons' })}
               </Link>
