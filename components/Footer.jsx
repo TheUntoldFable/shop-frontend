@@ -8,51 +8,50 @@ import { policies } from '@/helpers/policies'
 
 import Wrapper from './Wrapper'
 
-
 const Footer = () => {
   const { locale } = useRouter()
   const { t } = useTranslation('footer')
   return (
-    <footer className="flex justify-center md:flex-row flex-col items-center gap-2 bg-offWhite text-[#181516]">
+    <footer className="flex flex-col items-center justify-center gap-2 bg-offWhite text-darkBlack md:flex-row">
       <Image
         alt="img"
-        width={600}
-        height={600}
-        className="sm:w-24 md:w-32 w-20 mt-6 md:m-0 h-full"
+        width={400}
+        height={400}
+        className="size-24 sm:size-40"
         src="/logo-black.png"
       />
-      <div className="md:min-w-[55%] pb-8">
-        <Wrapper className="flex justify-between flex-col md:flex-row gap-12 pt-10">
+      <div className="pb-8 md:min-w-[55%]">
+        <Wrapper className="flex flex-col justify-between gap-12 pt-10 md:flex-row">
           {/* LEFT START */}
-          <div className="flex flex-col gap-3 shrink-0">
+          <div className="flex shrink-0 flex-col gap-3">
             <Link
               href="/contact"
-              className="text-darkBlack text-center md:text-left font-semibold uppercase text-sm cursor-pointer"
+              className="cursor-pointer text-center font-semibold text-sm uppercase text-darkBlack md:text-left"
             >
               {t('become_partner')}
             </Link>
           </div>
-          <div className="flex gap-[50px] md:gap-[75px] lg:gap-[100px] flex-col md:flex-row">
+          <div className="flex flex-col gap-[50px] md:flex-row md:gap-[75px] lg:gap-[100px]">
             {/* MENU START */}
             {/* MENU END */}
 
             {/* NORMAL MENU START */}
-            <div className="flex gap-6 md:gap-10 lg:gap-12 shrink-0">
+            <div className="flex shrink-0 gap-6 md:gap-10 lg:gap-12">
               {/* MENU START */}
-              <div className="flex flex-col gap-3 md:mx-0 md:text-left text-center mx-auto">
-                <p className="text-darkBlack font-semibold uppercase text-sm">
+              <div className="mx-auto flex flex-col gap-3 text-center md:mx-0 md:text-left">
+                <p className="font-semibold text-sm uppercase text-darkBlack">
                   {t('help')}
                 </p>
                 <Link
                   href="/contact"
                   className="
-                  text-[12px] 
-                  text-darkBlack 
-                  hover:text-darkBlack/[0.5]
-                  transition 
-                  ease-in-out 
-                  duration-300 
-                  cursor-pointer"
+                  cursor-pointer
+                  text-[12px]
+                  text-darkBlack
+                  transition
+                  duration-300
+                  ease-in-out
+                  hover:text-darkBlack/[0.5]"
                 >
                   {t('contact_us')}
                 </Link>
@@ -64,69 +63,73 @@ const Footer = () => {
           {/* LEFT END */}
 
           {/* RIGHT START */}
-          <div className="flex gap-4 justify-center md:justify-start">
+          <div className="flex justify-center gap-4 md:justify-start">
             <div
               onClick={() =>
                 window.open('https://www.instagram.com/troykawear/')
               }
               className="
-              w-10 
-              h-10 
-              rounded-full 
-              bg-darkBlack/[0.25]   
-              transition 
-              ease-in-out 
+              flex
+              size-10
+              cursor-pointer
+              items-center
+              justify-center
+              rounded-full
+              bg-darkBlack/[0.25]
+              text-black
+              transition
               duration-300
-              flex  
-              items-center 
-              justify-center 
-              text-black hover:text-darkBlack/[0.5] cursor-pointer"
+              ease-in-out hover:text-darkBlack/[0.5]"
             >
               <FaInstagram size={20} />
             </div>
           </div>
           {/* RIGHT END */}
         </Wrapper>
-        <Wrapper className="flex justify-between mt-5 flex-col md:flex-row gap-[10px] md:gap-12">
+        <Wrapper className="mt-5 flex flex-col justify-between gap-[10px] md:flex-row md:gap-12">
           {/* LEFT START */}
-          <p className="
-          text-[12px] 
-          text-darkBlack/[0.8]  
-          hover:text-darkBlack/[0.5]
-           cursor-pointer 
-           mt-auto 
-           text-center
-           transition 
-           ease-in-out 
-           duration-300  
-           md:text-left">
+          <p
+            className="
+          mt-auto
+          cursor-pointer
+          text-center
+           text-[12px]
+           text-darkBlack/[0.8]
+           transition
+           duration-300
+           ease-in-out
+           hover:text-darkBlack/[0.5]
+           md:text-left"
+          >
             {t('copyright')}
           </p>
           {/* LEFT END */}
 
           {/* RIGHT START */}
-          <div className="
-          flex 
-          flex-col 
-          gap-2 
-          md:gap-1 
-          text-center 
-          md:text-right 
-          flex-wrap 
-          justify-center">
+          <div
+            className="
+          flex
+          flex-col
+          flex-wrap
+          justify-center
+          gap-2
+          text-center
+          md:gap-1
+          md:text-right"
+          >
             <a
               id="refund"
               href={policies[locale].refund}
               target="_blank"
               rel="noopener noreferrer"
               className="
-              text-[12px] 
-              text-darkBlack 
-              hover:text-darkBlack/[0.5] 
-              transition 
-              ease-in-out 
-              duration-300 
-              cursor-pointer"
+              cursor-pointer
+              text-[12px]
+              text-darkBlack
+              transition
+              duration-300
+              ease-in-out
+              hover:text-darkBlack/[0.5]"
             >
               {t('refund_policy')}
             </a>
@@ -136,13 +139,13 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="
-              text-[12px] 
-              text-darkBlack 
-              hover:text-darkBlack/[0.5]
-              transition 
-              ease-in-out 
-              duration-300 
-              cursor-pointer"
+              cursor-pointer
+              text-[12px]
+              text-darkBlack
+              transition
+              duration-300
+              ease-in-out
+              hover:text-darkBlack/[0.5]"
             >
               {t('terms_use')}
             </a>
@@ -152,13 +155,13 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="
-              text-[12px] 
-              text-darkBlack 
-              hover:text-darkBlack/[0.5]
-              transition 
-              ease-in-out 
-              duration-300 
-              cursor-pointer"
+              cursor-pointer
+              text-[12px]
+              text-darkBlack
+              transition
+              duration-300
+              ease-in-out
+              hover:text-darkBlack/[0.5]"
             >
               {t('privacy_policy')}
             </a>
