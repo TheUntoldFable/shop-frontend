@@ -1,12 +1,11 @@
-import Link from 'next/link'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Link from 'next/link'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Wrapper from '@/components/Wrapper'
 import { useAppDispatch } from '@/helpers/store'
 import { resetCart } from '@/store/cartSlice'
-import { deleteDataFromApi, fetchDataFromApi } from '@/utils/api'
 
 
 const Success = () => {
@@ -14,21 +13,8 @@ const Success = () => {
   const { t } = useTranslation([ 'order' ])
 
   useEffect(() => {
-    const deleteUnpaidOrder = async () => {
-      const res = await fetchDataFromApi('/api/orders?populate=*')
 
-      const orderNotPaid = res?.data.find((item) => !item?.attributes?.isPaid && item.attributes.paymentMethod === 'card')
 
-      if (orderNotPaid) {
-        await deleteDataFromApi(`/api/orders/${orderNotPaid?.id}`)
-        console.info('...DELETED')
-      } else {
-        console.info('....NO UNPAID ORDERS')
-      }
-      return
-    }
-
-    deleteUnpaidOrder()
 
     dispatch(resetCart())
   }, [])
