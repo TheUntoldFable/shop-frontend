@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import Link from 'next/link'
-import { useTranslation } from 'next-i18next'
-import React from 'react'
-import { BsChevronDown } from 'react-icons/bs' // eslint-disable-next-line react/prop-types
+import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
+import React from 'react';
+import { BsChevronDown } from 'react-icons/bs'; // eslint-disable-next-line react/prop-types
 
 // eslint-disable-next-line react/prop-types
 const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
@@ -72,11 +72,11 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                   shadow-lg"
                   >
                     {categories &&
-                      categories?.map(({ attributes: c, id }) => {
+                      categories?.map(({slug, id, name, products }) => {
                         return (
                           <Link
                             key={id}
-                            href={`/category/${c.slug}`}
+                            href={`/category/${slug}`}
                             onClick={() => setShowCatMenu(false)}
                           >
                             <li
@@ -92,9 +92,9 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                           shadow-sm
                           rounded-sm"
                             >
-                              {c.name}
+                              {name}
                               <span className="opacity-50 text-sm">
-                                {`(${c.products.data.length})`}
+                                {`(${products?.length})`}
                               </span>
                             </li>
                           </Link>

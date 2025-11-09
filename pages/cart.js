@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { faCartShopping, faCreditCard, faTruckArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { memo, useEffect, useMemo, useState } from 'react'
 
 import SelectAddress from '@/components/cart/SelectAddress'
@@ -44,7 +44,7 @@ const Cart = (props) => {
   const currency = locale !== 'bg' ? 'BGN' : 'ЛВ'
 
   const subTotal = useMemo(() => {
-    return cartItems.reduce((total, val) => total + val?.attributes.price, 0)
+    return cartItems.reduce((total, val) => total + val?.price, 0)
   }, [ cartItems ])
 
   const shouldPreventProceed = () => {
@@ -83,6 +83,8 @@ const Cart = (props) => {
 
     dispatch(handlePayment(paymentData))
   }
+
+  console.log(cartItems,'cartItems')
 
   return (
     <Container>

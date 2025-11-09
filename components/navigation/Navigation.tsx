@@ -1,13 +1,13 @@
 import {
-  useScroll,
-  useMotionValueEvent,
   motion,
+  useMotionValueEvent,
+  useScroll,
   Variant
 } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { BiMenuAltRight } from 'react-icons/bi'
 import { VscChromeClose } from 'react-icons/vsc'
 import { useSelector } from 'react-redux'
@@ -19,11 +19,11 @@ import { setShowBanner } from '@/store/uiSlice'
 import { selectWishlistItems } from '@/store/wishlistSlice'
 import { fetchDataFromApi } from '@/utils/api'
 
-import Additional from './Additional'
 import Spacer from '../generic/Spacer'
 import LanguageSwitcher from '../lang/LanguageSwitcher'
 import Menu from '../Menu'
 import MenuMobile from '../MenuMobile'
+import Additional from './Additional'
 
 const Navigation = () => {
   const dispatch = useAppDispatch()

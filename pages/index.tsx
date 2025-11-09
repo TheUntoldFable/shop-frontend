@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 import Container from '@/components/Container'
@@ -22,6 +22,7 @@ export default function Home({ shirts, hoodies, allProducts, userData }) {
     dispatch(setUserInfo(userData))
   }, [])
 
+
   return (
     <main>
       <Container className='md:mt-56 sm:mt-28 mt-12'>
@@ -33,10 +34,6 @@ export default function Home({ shirts, hoodies, allProducts, userData }) {
 
 export async function getStaticProps(ctx) {
   const { locale } = ctx
-
-  // const products = await fetchDataFromApi(
-  //   `/api/products?populate=*&sort=subtitle:desc&locale=${locale}`
-  // );
 
   const shirts = await fetchDataFromApi(
     `/api/products?populate=*&filters[subtitle][$contains]=t-shirt&sort=updatedAt:asc&locale=${locale}`

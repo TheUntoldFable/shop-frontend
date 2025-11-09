@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import 'react-toastify/dist/ReactToastify.css'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
@@ -7,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 import Markdown from 'react-markdown'
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import Container from '@/components/Container'
 import Exclaimer from '@/components/Exclaimer'
@@ -17,7 +17,7 @@ import Wrapper from '@/components/Wrapper'
 import { useAppDispatch } from '@/helpers/store'
 import { addToCart } from '@/store/cartSlice'
 import { useAppSelector } from '@/store/hooks'
-import { selectIsWishlisted , addToWishlist } from '@/store/wishlistSlice'
+import { addToWishlist, selectIsWishlisted } from '@/store/wishlistSlice'
 import { fetchDataFromApi } from '@/utils/api'
 import { getDiscountedPricePercentage } from '@/utils/helper'
 
@@ -25,7 +25,8 @@ const ProductDetails = ({ product, products }) => {
   const { t } = useTranslation([ 'product_details', 'buttons', 'common' ])
   const dispatch = useAppDispatch()
   const { productSlider, outOfStock, subtitle } =
-    product.data[0].attributes
+    product.data[0]
+
 
   const isAccessory = !subtitle.toLowerCase().includes('hoodie') && !subtitle.toLowerCase().includes('t-shirt')
 
@@ -36,13 +37,14 @@ const ProductDetails = ({ product, products }) => {
   const [ showError, setShowError ] = useState(false)
   const [ selectedImage, setSelectedImage ] = useState(undefined)
 
-  const hasSlider = productSlider && productSlider?.data?.length > 0
+  const hasSlider = productSlider && productSlider.length > 0
   const isWishlisted = useAppSelector((state) =>
     selectIsWishlisted(state, { ...product.data[0] })
   )
-  const p = product?.data?.[0]?.attributes
+  const p = product?.data?.[0]
 
-  const description = product?.data?.[0]?.attributes.description
+
+  const description = product?.data?.[0]?.description
 
   const discount = Number(getDiscountedPricePercentage(p.original_price, p.price))
 
@@ -79,14 +81,14 @@ const ProductDetails = ({ product, products }) => {
             <div className="flex gap-2 w-full md:w-auto flex-[1.5] max-w-[500px] lg:max-w-full mx-auto lg:mx-0">
               <ProductDetailsCarousel
                 selected={selectedImage}
-                sliderImages={productSlider?.data}
-                image={p.image.data[0]}
+                sliderImages={productSlider}
+                image={p?.image?.[0]}
               />
               {hasSlider && (
                 <ImageSelector
                   selected={selectedImage}
                   onSelect={setSelectedImage}
-                  images={productSlider.data}
+                  images={productSlider}
                 />
               )}
             </div>

@@ -13,9 +13,6 @@ const Success = () => {
   const { t } = useTranslation([ 'order' ])
 
   useEffect(() => {
-
-
-
     dispatch(resetCart())
   }, [])
 

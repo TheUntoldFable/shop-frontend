@@ -4,7 +4,6 @@ import { useTranslation } from 'next-i18next'
 import { useMemo, useRef } from 'react'
 import { ToastContainer } from 'react-toastify'
 
-import Discount from '@/components/Discount'
 import useWindowSize from '@/hooks/useWindowSize'
 import { slideRight } from '@/utils/animations'
 
@@ -24,12 +23,13 @@ export default function HomePage({ hoodies, shirts, allProducts }) {
   const collectionInView = useInView(collectionRef, { once: true })
   const godsMonstersInView = useInView(godsMonstersRef, { once: true })
 
+
   const filteredProducts = useMemo(
     () =>
       allProducts.data.filter(
         (p) =>
-          p.attributes.subtitle !== 't-shirt' &&
-          p.attributes.subtitle !== 'hoodie'
+          p.attributes?.subtitle !== 't-shirt' &&
+          p.attributes?.subtitle !== 'hoodie'
       ),
     [ allProducts ]
   )

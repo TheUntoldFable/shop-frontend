@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 import React from 'react'
 import { BsChevronDown } from 'react-icons/bs'
 
@@ -20,6 +20,7 @@ const MenuMobile = ({
     /*{ id: 5, name: t('blog'), url: '/blogs' }*/
   ]
 
+
   return (
     <ul className="flex flex-col md:hidden font-bold absolute top-[50px] left-0 w-full h-[calc(100vh-50px)] bg-white border-t text-black">
       {navItems.map((item) => {
@@ -37,20 +38,20 @@ const MenuMobile = ({
 
                 {showCatMenu && (
                   <ul className="bg-#393646/[0.05] -mx-5 mt-4 -mb-4">
-                    {categories?.map(({ attributes: c, id }) => {
+                    {categories?.map(({ slug, id, name, products }) => {
                       return (
                         <Link
                           key={id}
-                          href={`/category/${c.slug}`}
+                          href={`/category/${slug}`}
                           onClick={() => {
                             setShowCatMenu(false)
                             setMobileMenu(false)
                           }}
                         >
                           <li className="py-4 px-8 border-t flex justify-between">
-                            {c.name}
+                            {name}
                             <span className="opacity-50 text-sm">
-                              {`(${c.products.data.length})`}
+                              {`(${products?.length})`}
                             </span>
                           </li>
                         </Link>
@@ -62,7 +63,7 @@ const MenuMobile = ({
             ) : (
               <li className="py-4 px-5 border-b">
                 <Link href={item?.url} onClick={() => setMobileMenu(false)}>
-                  {item.name}
+                  {item?.name}
                 </Link>
               </li>
             )}
