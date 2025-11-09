@@ -4,14 +4,15 @@ import { RiDeleteBin6Line } from 'react-icons/ri'
 
 import { useAppDispatch } from '@/helpers/store'
 import useCurrency from '@/hooks/useCurrency'
-import { updateCart, removeFromCart } from '@/store/cartSlice'
+import { removeFromCart, updateCart } from '@/store/cartSlice'
 
 const CartItem = ({ data }) => {
   const dispatch = useAppDispatch()
   const { currency } = useCurrency()
   
-  const p = data.attributes
-  const slug = p.categories.data[0].attributes.slug
+  const p = data
+  const slug = p.categories[0].slug
+  
   const isAccessory = slug.includes('band')
 
   const updateCartItem = (e, key) => {
@@ -28,7 +29,7 @@ const CartItem = ({ data }) => {
       {/* IMAGE START */}
       <div className="shrink-0 aspect-square w-[50px] md:w-[120px]">
         <Image
-          src={p.thumbnail.data.attributes.url}
+          src={p.thumbnail.url}
           alt={p.name}
           width={120}
           height={120}

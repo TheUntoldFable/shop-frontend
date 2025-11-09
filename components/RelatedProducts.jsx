@@ -9,7 +9,7 @@ import ProductCard from './ProductCard'
 const RelatedProducts = ({ products }) => {
   // eslint-disable-next-line react/prop-types
   const availableProducts = products.data.filter(
-    (item) => !item.attributes.outOfStock
+    (item) => !item.outOfStock
   )
 
   const { t } = useTranslation('product_details')

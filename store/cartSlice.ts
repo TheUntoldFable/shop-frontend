@@ -38,7 +38,7 @@ export const cartSlice = createSlice({
 
       if (item && item.selectedSize === action.payload.selectedSize) {
         item.quantity++
-        item.attributes.price = item.oneQuantityPrice * item.quantity
+        item.price = item.oneQuantityPrice * item.quantity
         // if(item.selectedSize )
       } else {
         state.cartItems.push({ ...action.payload, quantity: 1 })
@@ -48,7 +48,7 @@ export const cartSlice = createSlice({
       state.cartItems = state.cartItems.map((p:any) => {
         if (p.id === action.payload.id) {
           if (action.payload.key === 'quantity') {
-            p.attributes.price = p.oneQuantityPrice * action.payload.val
+            p.price = p.oneQuantityPrice * action.payload.val
           }
           return { ...p, [action.payload.key]: action.payload.val }
         }

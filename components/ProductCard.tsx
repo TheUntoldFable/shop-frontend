@@ -1,17 +1,18 @@
 /* eslint-disable react/prop-types */
-import { Variants, motion, useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import { useRef } from 'react'
 
 import useCurrency from '@/hooks/useCurrency'
 import useWindowSize from '@/hooks/useWindowSize'
 import { fadeIn } from '@/utils/animations'
 import { getDiscountedPricePercentage } from '@/utils/helper'
+
 const ProductCard = ({
-  data: { attributes: p },
+ data: { slug, name, price, original_price, outOfStock, thumbnail },
   isCarouselCard,
   border,
   mIndex // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,14 +23,13 @@ const ProductCard = ({
   const { locale } = router
   const { currency } = useCurrency()
   const discount = Number(
-    getDiscountedPricePercentage(p.original_price, p.price)
+    getDiscountedPricePercentage(original_price, price)
   )
-  
-  const productRef = useRef(null) 
 
+  const productRef = useRef(null) 
   const productInView = useInView(productRef, { once: true })
 
-  const disabled: boolean = p.outOfStock
+  const disabled: boolean = outOfStock
 
   return (
     <motion.div
@@ -50,7 +50,7 @@ const ProductCard = ({
    cursor-pointer
    `}
     >
-      <Link href={{ pathname: `/product/${p.slug}` }} locale={locale}>
+      <Link href={{ pathname: `/product/${slug}` }} locale={locale}>
         {disabled && (
           <div
             className="
@@ -81,26 +81,26 @@ const ProductCard = ({
             className={'bg-cover'}
             width={isCarouselCard ? 250 : 400}
             height={isCarouselCard ? 250 : 400}
-            src={p.thumbnail.data.attributes.url}
-            alt={p.name ?? 'No Photo'}
+            src={thumbnail?.url}
+            alt={name ?? 'No Photo'}
           />
           <div className="justify-end flex-col p-4 text-offWhite/[0.9]">
             <h2 className="text-lg text-transparent  bg-clip-text bg-gradient-to-r from-[#0ba360] to-[#3cba92] font-bold">
-              {p.name}
+              {name}
             </h2>
             <div className="flex items-center justify-between flex-row sm:flex-row text-black/[0.5]">
               <div className="flex flex-row">
                 <p className="mr-2 text-lg font-semibold">
-                  {p.price} {currency}
+                  {price} {currency}
                 </p>
 
                 {discount > 0 && (
                   <p className="text-base font-normal line-through">
-                    {p.original_price} {currency}
+                    {original_price} {currency}
                   </p>
                 )}
               </div>
-              {p.original_price && (
+              {original_price && (
                 <>
                   {discount > 0 && (
                     <div className="flex justify-between">
