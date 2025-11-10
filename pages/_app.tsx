@@ -1,12 +1,12 @@
+import '@/styles/globals.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import { ThemeProvider } from '@material-tailwind/react'
+import { appWithTranslation } from 'next-i18next'
 import { AppProps } from 'next/app'
 import localFont from 'next/font/local'
 import Head from 'next/head'
-import { appWithTranslation } from 'next-i18next'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/lib/integration/react'
-import '@/styles/globals.css'
 
 // eslint-disable-next-line import/order
 import Layout from '@/components/Layout'
@@ -18,7 +18,7 @@ import { persistor, rootReducer } from '@/store/store'
 
 config.autoAddCss = false
 
-const Euclid = localFont({
+const euclid = localFont({
   src: [
     {
       path: './../public/fonts/Euclid.ttf',
@@ -34,7 +34,22 @@ const Euclid = localFont({
       path: './../public/fonts/Euclid_Bold.ttf',
       style: 'bold',
       weight: '900'
-    }
+    },
+    {
+      path: './../public/fonts/Euclid_Bold_Italic.ttf',
+      style: 'italic',
+      weight: '900'
+    },
+    {
+      path: './../public/fonts/Euclid_Light_Italic.ttf',
+      style: 'italic',
+      weight: '500'
+    },
+    {
+      path: './../public/fonts/Euclid_Medium_Italic.ttf',
+      style: 'italic',
+      weight: '600'
+    },
   ]
 })
 
@@ -57,7 +72,7 @@ function App({ Component, pageProps }: AppProps) {
         <Provider store={rootReducer}>
           <PersistGate persistor={persistor}>
             <UIProvider>
-              <main className={Euclid.className}>
+              <main className={`${euclid.className}`}>
                 <Layout component={Component} pageProps={pageProps} />
               </main>
             </UIProvider>

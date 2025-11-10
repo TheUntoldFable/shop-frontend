@@ -28,8 +28,8 @@ export default function HomePage({ hoodies, shirts, allProducts }) {
     () =>
       allProducts.data.filter(
         (p) =>
-          p.attributes?.subtitle !== 't-shirt' &&
-          p.attributes?.subtitle !== 'hoodie'
+          p.subtitle !== 't-shirt' &&
+          p.subtitle !== 'hoodie'
       ),
     [ allProducts ]
   )
@@ -47,9 +47,12 @@ export default function HomePage({ hoodies, shirts, allProducts }) {
           className="relative mb-12 flex flex-1 flex-col gap-6 rounded-md bg-offWhite bg-opacity-90 p-6"
         >
           <div className="z-1 rounded-md text-center">
-            <h2 className="my-6 rounded-md p-4 font-semibold text-[24px] uppercase text-darkBlack sm:text-[32px]">
+            <p className='text-[16px] text-transparent bg-clip-text bg-gradient-to-r from-[#284136] to-[#3cba92]  font-semibold italic uppercase'>new</p>
+
+            <h2 className="my-2 rounded-md  font-semibold text-[24px] uppercase text-darkBlack sm:text-[32px]">
               {t('GODS & MONSTERS')}
             </h2>
+
           </div>
 
           {hoodies && (
@@ -71,9 +74,12 @@ export default function HomePage({ hoodies, shirts, allProducts }) {
           className="relative mb-12 flex flex-1 flex-col gap-6 rounded-md bg-offWhite bg-opacity-90 p-6"
         >
           <div className="z-1 rounded-md text-center">
-            <h2 className="my-6 rounded-md p-4 font-semibold text-[24px] uppercase text-darkBlack sm:text-[32px]">
+            <p className='text-[16px] text-transparent bg-clip-text bg-gradient-to-r from-[#284136] to-[#3cba92] font-semibold italic uppercase'>new</p>
+
+            <h2 className="my-2 rounded-md  font-semibold text-[24px] uppercase text-darkBlack sm:text-[32px]">
               {t('uncensored_collection')}
             </h2>
+
           </div>
 
           {shirts && (

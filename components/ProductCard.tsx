@@ -15,7 +15,6 @@ const ProductCard = ({
  data: { slug, name, price, original_price, outOfStock, thumbnail },
   isCarouselCard,
   border,
-  mIndex // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }: any) => {
   const { isMobile } = useWindowSize()
   const { t } = useTranslation('common')
@@ -34,18 +33,17 @@ const ProductCard = ({
   return (
     <motion.div
       ref={productRef}
-      style={!isMobile ? fadeIn(productInView, mIndex) : undefined}
+      style={!isMobile ? fadeIn(productInView) : undefined}
       className={`${isCarouselCard && 'h-[500px] w-[450px]'} 
       relative
       overflow-hidden
     bg-darkBlack
-      transition 
-      ease-in-out duration-300
-      drop-shadow-2xl
+      drop-shadow-lg
+      rounded-md
    ${
     disabled
       ? 'hover:scale-1 pointer-events-none cursor-auto'
-      : 'sm:hover:scale-105 hover:-translate-y-5'
+      : undefined
     }
    cursor-pointer
    `}
@@ -74,11 +72,14 @@ const ProductCard = ({
             isCarouselCard &&
             'sm:border-[2px] sm:border-white sm:w-[250px] sm:min-h-[500px]'
           } 
-        ${border ?? 'border-[2px] border-white'}`}
+          transition-all 0.4s cubic-bezier(0.17, 0.55, 0.55, 1)
+      rounded-md
+          hover:border-[#3cba92] border-offWhite border-[4px] '
+       `}
         >
           {disabled && <div className="inset-0 absolute bg-white opacity-50" />}
           <Image
-            className={'bg-cover'}
+            className={'bg-cover '}
             width={isCarouselCard ? 250 : 400}
             height={isCarouselCard ? 250 : 400}
             src={thumbnail?.url}
