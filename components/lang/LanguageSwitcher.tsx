@@ -1,4 +1,4 @@
-import { Tabs, TabsHeader, Tab } from '@material-tailwind/react'
+import { Tab, Tabs, TabsHeader } from '@material-tailwind/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
@@ -8,7 +8,6 @@ import { revertAll } from '@/store/rootReducer'
 
 const options = [
   { label: 'en', value: 'en' },
-  { label: 'it', value: 'it' },
   { label: 'bg', value: 'bg' }
 ]
 

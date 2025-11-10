@@ -18,6 +18,9 @@ module.exports = withMT({
       bold: 'Euclid_Bold',
       semibold: 'Euclid_SemiBold',
       hearthLess: 'Hearthless',
+      italic_bold: 'Euclid_Italic_Bold',
+      italic_medium: 'Euclid_Italic_Medium',
+      italic_light: 'Euclid_Italic_Light',
       backdropFilter: {
         none: 'none',
         blur: 'blur(20px)'
@@ -45,7 +48,10 @@ module.exports = withMT({
       fontFamily: {
         normal: [ 'var(--font-normal)' ],
         semibold: [ 'var(--font-semibold)' ],
-        bold: [ 'var(--font-bold)' ]
+        bold: [ 'var(--font-bold)' ],
+        italic_bold: [ 'var(--font-italic-bold)' ],
+        italic_medium: [ 'var(--font-italic-medium)' ],
+        italic_light: [ 'var(--font-italic-light)' ],
       }
     }
   },
